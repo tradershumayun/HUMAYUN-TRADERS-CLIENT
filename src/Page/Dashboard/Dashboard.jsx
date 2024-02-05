@@ -1,13 +1,37 @@
-import { Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Header from "../../components/Shared/Header/Header";
+import { AuthContext } from "../../providers/AuthProvider";
 import AdminMenu from "./Admin/AdminMenu";
 import AgentMenu from "./Agent/AgentMenu";
 import UserMenu from "./User/UserMenu";
-
 const isAdmin = true;
 const isAgent = true;
 
+const showSuccessAlert = () => {
+  Swal.fire({
+    icon: "success",
+    title: "Log out",
+    text: "Successfully logged out",
+  });
+};
+
 const Dashboard = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logOut } = useContext(AuthContext);
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+      showSuccessAlert();
+      navigate(location?.state?.from ? location.state.from : "/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+ 
+
   return (
     <div
       style={{
@@ -33,13 +57,15 @@ const Dashboard = () => {
             </h2>
           </div>
         </div>
+ 
       </div>
       <div className="flex flex-col lg:flex-row w-full container mx-auto  gap-5 ">
         <div className="w-full lg:w-1/3  p-4  sticky top-10">
           <div className="justify-around p-4 text-center rounded-lg lg:-mt-32 bg-[#172554] w-full mx-auto ">
+            <p className="text-white"> Email : {user?.email} </p>
             <img
-              // src={displayPhotoURL}
-              // alt={displayName}
+              src={user?.displayPhotoURL}
+              alt={user?.displayName}
               className=" h-44 mx-auto rounded-full aspect-square"
             />
             <div className="space-y-4 text-center divide-y">
@@ -48,10 +74,7 @@ const Dashboard = () => {
                   {/* {displayName} */}
                 </h2>
               </div>
-              <button
-                //  onClick={handleSignOut}
-                className="btn btn-info  px-8"
-              >
+              <button onClick={handleSignOut} className="btn btn-info  px-8">
                 Log Out
               </button>
             </div>
