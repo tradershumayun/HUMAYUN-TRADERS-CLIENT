@@ -30,7 +30,6 @@ const Dashboard = () => {
       console.error(error);
     }
   };
- 
 
   return (
     <div
@@ -45,7 +44,8 @@ const Dashboard = () => {
       <div className="lg:h-[300px] bg-cover bg-center relative">
         <div className="container mx-auto">
           <div className=" px-8 lg:p-8">
-            <p className="pt-8  text-gray-800">স্বাগতম,</p>
+            <p className="pt-8  text-gray-800">স্বাগতম, {user?.displayName}</p>
+            
             <h2 className="text-2xl lg:text-4xl font-bold py-2 lg:py-4 text-left text-gray-950  capitalize">
               {isAdmin ? (
                 <>অ্যাডমিন ড্যাশবোর্ড,</>
@@ -57,21 +57,20 @@ const Dashboard = () => {
             </h2>
           </div>
         </div>
- 
       </div>
       <div className="flex flex-col lg:flex-row w-full container mx-auto  gap-5 ">
         <div className="w-full lg:w-1/3  p-4  sticky top-10">
           <div className="justify-around p-4 text-center rounded-lg lg:-mt-32 bg-[#172554] w-full mx-auto ">
-            <p className="text-white"> Email : {user?.email} </p>
             <img
-              src={user?.displayPhotoURL}
+              src={user?.photoURL}
               alt={user?.displayName}
               className=" h-44 mx-auto rounded-full aspect-square"
             />
+
             <div className="space-y-4 text-center divide-y">
               <div className="my-4 space-y-1">
                 <h2 className="text-xl font-semibold sm:text-2xl text-white">
-                  {/* {displayName} */}
+               
                 </h2>
               </div>
               <button onClick={handleSignOut} className="btn btn-info  px-8">
