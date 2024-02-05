@@ -1,0 +1,5 @@
+/* Active style for NavLink */
+.active {
+  color: #ffffff;
+  background-color: #090539 !important;
+}
