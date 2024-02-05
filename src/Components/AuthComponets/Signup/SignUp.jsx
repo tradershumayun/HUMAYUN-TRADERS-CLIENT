@@ -7,11 +7,12 @@ import axios from "axios";
 import { updateProfile } from "firebase/auth";
 function validatePassword(password) {
   if (
-    password.length < 6 ||
-    !/[A-Z]/.test(password) ||
-    !/[!@#$%^&*()_+{}[\]:;<>,.?~\\/]/.test(password)
+    password.length < 6
+    // password.length < 6 ||
+    // !/[A-Z]/.test(password) ||
+    // !/[!@#$%^&*()_+{}[\]:;<>,.?~\\/]/.test(password)
   ) {
-    return "Password must be at least 6 characters long, contain at least one uppercase letter, and have at least one special character.";
+    return "Password must be at least 6 characters long";
   }
 
   return "";
@@ -45,8 +46,7 @@ const SignUp = () => {
       text: error,
     });
   };
-  //  -----------------------
-  // ----------------------
+ 
   const handleSignUp = async (e) => {
     e.preventDefault();
     const passwordValidationResult = validatePassword(password);
