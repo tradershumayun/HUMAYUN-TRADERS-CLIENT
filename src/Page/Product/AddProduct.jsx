@@ -1,21 +1,30 @@
 import axios from "axios";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosPublic from "../../Components/hook/useAxiosPublic";
 
 const AddProduct = () => {
   const {
-    register,
+    register, 
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: 'onChange',  // This helps with displaying errors for file inputs
+  });
+  const axiosPublic = useAxiosPublic();
+  
+  const { user } = useContext(AuthContext);
 
   const apiKey = "3e477ce4b247b31f42c9d294e9979cbe";
   const imageHostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 
   const onSubmit = async (data) => {
-    const photoURL = data.photoURL[0];  
-
+    const photoURL = data.photoURL[0];
     const imageFile = { image: photoURL };
+
     try {
       const res = await axios.post(imageHostingApi, imageFile, {
         headers: {
@@ -23,25 +32,31 @@ const AddProduct = () => {
         },
       });
 
-     
-      const productData = { ...data, imageURL: res.data.data.url };
-      
-      fetch("http://localhost:5000/product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      const productData = {
+        ...data,
+        imageURL: res.data.data.url,
+        ownerEmail: user?.email,
+      };
+ 
+      const productRes = await axiosPublic.post("/product", productData);
+
+
+      if (productRes.data) {
+        reset({
+          productName: "",
+          photoURL: "",
+          productQuantity: "",
+          productPrice: "",
+          ProductType: "",
+          productDescription: "",
+        });
+
         Swal.fire({
           title: "Product added",
           text: "You clicked the button!",
           icon: "success",
         });
-      });
+      }
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -52,6 +67,7 @@ const AddProduct = () => {
       <h1 className="text-2xl font-bold text-center">Add a Product</h1>
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-1 text-sm">
+          <p> </p>
           <label className="block dark-text-gray-400">Product Name</label>
           <input
             {...register("productName", {
