@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
@@ -8,23 +9,42 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
 
+  const apiKey = "3e477ce4b247b31f42c9d294e9979cbe";
+  const imageHostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+
   const onSubmit = async (data) => {
-    fetch("http://localhost:5000/product", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    const photoURL = data.photoURL[0];  
+
+    const imageFile = { image: photoURL };
+    try {
+      const res = await axios.post(imageHostingApi, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+     
+      const productData = { ...data, imageURL: res.data.data.url };
+      
+      fetch("http://localhost:5000/product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         Swal.fire({
-          title: "Product add ",
+          title: "Product added",
           text: "You clicked the button!",
-          icon: "success"
+          icon: "success",
         });
       });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
 
   return (
@@ -48,12 +68,12 @@ const AddProduct = () => {
         <div className="space-y-1 text-sm">
           <label className="block dark-text-gray-400">Image URL</label>
           <input
-            {...register("image", { required: "Image URL is required" })}
-            type="text"
+            {...register("photoURL", { required: "Image URL is required" })}
+            type="file"
             className="w-full bg-white text-black px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
           />
-          {errors.image && (
-            <p className="text-red-500">{errors.image.message}</p>
+          {errors.photoURL && (
+            <p className="text-red-500">{errors.photoURL.message}</p>
           )}
         </div>
 

@@ -28,7 +28,7 @@ const AllProducts = () => {
             <div className="h-44 w-[500px] rounded-xl bg-base-300">
               <img
                 className="h-44 rounded-xl mx-auto"
-                src={product?.image}
+                src={product?.imageURL}
                 alt={product?.displayName}
               />
             </div>
