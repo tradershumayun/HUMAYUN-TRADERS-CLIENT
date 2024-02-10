@@ -1,24 +1,41 @@
 import { useState, useEffect } from "react";
-import useAxiosPublic from "../../Components/hook/useAxiosPublic";
 import { useParams } from "react-router-dom";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const SingleProduct = () => {
-  const axiosInstance = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [product, setProduct] = useState({});
-  const { productId } = useParams();
-  console.log(productId);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axiosInstance.get(`/product/${productId}`);
+        const response = await axiosSecure.get(`/product/${id}`);
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product data: ", error);
+        setError("Error fetching product data");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [axiosInstance, productId]);
+  }, [axiosSecure, id]);
+
+  if (loading) {
+    return <p>Loading...</p>; // You can replace this with a loading spinner or any other UI element.
+  }
+
+  if (error) {
+    return (
+      <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-5 rounded-xl m-5 text-white">
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-5 rounded-xl m-5 text-white">
@@ -28,8 +45,8 @@ const SingleProduct = () => {
           <div className="h-44 w-[500px] rounded-xl bg-base-300">
             <img
               className="h-44 rounded-xl mx-auto"
-              src={product?.image}
-              alt={product?.title}
+              src={product?.imageURL}
+              alt={product?.displayName}
             />
           </div>
         </figure>

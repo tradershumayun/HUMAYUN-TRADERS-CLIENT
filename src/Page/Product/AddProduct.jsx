@@ -18,7 +18,7 @@ const AddProduct = () => {
   
   const { user } = useContext(AuthContext);
 
-  const apiKey = "3e477ce4b247b31f42c9d294e9979cbe";
+  const apiKey = "ce962703e172614d7c982b1ffcc21721";
   const imageHostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 
   const onSubmit = async (data) => {

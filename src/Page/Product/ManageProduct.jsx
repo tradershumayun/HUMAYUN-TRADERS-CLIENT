@@ -30,7 +30,7 @@ const ManageProduct = () => {
         axios.delete(`http://localhost:5000/product/${productId}`)
           .then(response => {
             if (response.status === 200) {
-              // If the product is successfully deleted, update the state
+             
               setProducts(prevProducts => prevProducts.filter(product => product._id !== productId));
               Swal.fire("Deleted!", "Your product has been deleted.", "success");
             } else {
