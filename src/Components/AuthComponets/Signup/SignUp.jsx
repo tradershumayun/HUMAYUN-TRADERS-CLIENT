@@ -5,6 +5,8 @@ import logo from "../../../assets/logo.png";
 import { AuthContext } from "../../../providers/AuthProvider";
 import axios from "axios";
 import { updateProfile } from "firebase/auth";
+import useAxiosPublic from "../../hook/useAxiosPublic";
+
 function validatePassword(password) {
   if (
     password.length < 6
@@ -18,18 +20,20 @@ function validatePassword(password) {
   return "";
 }
 // ------------------
-const apiKey = 'ce962703e172614d7c982b1ffcc21721';
-const imageHostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`
+const apiKey = "ce962703e172614d7c982b1ffcc21721";
+const imageHostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
-  const [NID, setNID] = useState("");
+  const [nid, setNid] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const showSuccessAlert = () => {
     Swal.fire({
@@ -40,96 +44,81 @@ const SignUp = () => {
   };
 
   const showErrorAlert = (error) => {
+    let errorMessage = error;
+
+    if (error && error.message) {
+      errorMessage = error.message;
+    }
+
     Swal.fire({
       icon: "error",
       title: "Error",
-      text: error,
+      text: errorMessage,
     });
   };
- 
+
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const passwordValidationResult = validatePassword(password);
+    setLoading(true);
 
-    if (passwordValidationResult) {
-      setPasswordError(passwordValidationResult);
-      return;
-    }
+    try {
+      const passwordValidationResult = validatePassword(password);
 
-    const form = e.target;
-    const displayName = form.displayName.value;
-    const photoURL = form.photoURL.files[0];
-
-    const imageFile = { image: photoURL }
-    const res = await axios.post(imageHostingApi, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
+      if (passwordValidationResult) {
+        setPasswordError(passwordValidationResult);
+        return;
       }
-    });
 
-    console.log(res)
+      const form = e.target;
+      const displayName = form.displayName.value;
+      const photoURL = form.photoURL.files[0];
 
-    createUser(email, password)
-      .then((result) => {
-        const currentUser = result.user;
-        result.user.displayName = displayName;
-        result.user.photoURL = res.data?.data?.display_url;
-
-        updateProfile(currentUser, {
-          displayName: displayName,
-          photoURL: res.data?.data?.display_url,
-        })
-          .then(() => {
-            const userInfo =  {
-              email: currentUser.email ,
-              photoURL: "https://example.com/sigma.jpg",
-              displayName: "Sigma User",
-              userRole: "agent",
-              totalBuy: 10000,
-              due: 300,
-              address: "456 Oak Street, Townsville",
-              nidCardNumber: "9876543210987654",
-              phoneNumber: "+1 987-654-3210",
-              reference: "Colleague's name",
-              code: 87654321,
-              agentDealingInfo: {
-                perDeal: 150,
-                monthly: 1200,
-                yearly: 14400,
-              },
-              productBuyInfo: [
-                {
-                  productName: "Product C",
-                  quantity: 3,
-                  date: "2024-02-05",
-                  productDetails: "Details about Product C",
-                  productPrice: 75,
-                  paymentMethod: "PayPal",
-                },
-                {
-                  productName: "Product D",
-                  quantity: 2,
-                  date: "2024-02-06",
-                  productDetails: "Details about Product D",
-                  productPrice: 40,
-                  paymentMethod: "Bank Transfer",
-                },
-              ],
-            }
-            console.log(userInfo)
-
-            axios.post(`http://localhost:5000/createUser`, userInfo)
-              .then(() => {
-                showSuccessAlert();
-                navigate('/')
-              })
-          })
-          .catch(error => console.log(error))
-      })
-      .catch(error => {
-        showErrorAlert();
-        console.log(error)
+      const imageFile = { image: photoURL };
+      const res = await axios.post(imageHostingApi, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
       });
+
+      createUser(email, password)
+        .then((result) => {
+          const currentUser = result.user;
+          result.user.displayName = displayName;
+          result.user.photoURL = res.data?.data?.display_url;
+
+          updateProfile(currentUser, {
+            displayName: displayName,
+            photoURL: res.data?.data?.display_url,
+          })
+            .then(() => {
+              const data = {
+                uid: result.user.uid,
+                email,
+                address,
+                phoneNo,
+                nid,
+              };
+
+              axiosPublic.post("/user", data).then(() => {
+                setLoading(false);
+                showSuccessAlert();
+                navigate("/");
+              });
+            })
+            .catch((error) => {
+              showErrorAlert(error.message);
+              setLoading(false);
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          showErrorAlert(error.message);
+          setLoading(false);
+          console.log(error);
+        });
+    } finally {
+      // setLoading(false);
+    }
   };
 
   const handlePasswordChange = (e) => {
@@ -149,8 +138,8 @@ const SignUp = () => {
     setPhoneNo(e.target.value);
   };
 
-  const handleNIDChange = (e) => {
-    setNID(e.target.value);
+  const handlenidChange = (e) => {
+    setNid(e.target.value);
   };
 
   return (
@@ -190,7 +179,11 @@ const SignUp = () => {
               <label htmlFor="photoURL" className="block text-white">
                 আপনার ছবির Url
               </label>
-              <input type="file" name="photoURL" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" />
+              <input
+                type="file"
+                name="photoURL"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+              />
             </div>
             <div className="space-y-1 text-sm">
               <label htmlFor="email" className="block text-white">
@@ -238,16 +231,16 @@ const SignUp = () => {
               />
             </div>
             <div className="space-y-1 text-sm">
-              <label htmlFor="NID" className="block text-white">
+              <label htmlFor="nid" className="block text-white">
                 আপনার জাতীয় পরিচয় পত্র নং
               </label>
               <input
                 type="text"
-                name="NID"
-                value={NID}
-                onChange={handleNIDChange}
-                id="NID"
-                placeholder="NID No"
+                name="nid"
+                value={nid}
+                onChange={handlenidChange}
+                id="nid"
+                placeholder="nid No"
                 className="w-full border px-4 py-3 rounded-md dark:border-gray-700 dark.bg-gray-900 dark:text-gray-100 focus:dark-border-violet-400"
                 required
               />
@@ -271,8 +264,12 @@ const SignUp = () => {
               )}
             </div>
 
-            <button className="block w-full p-3 text-center rounded-xl dark.text-gray-900 dark.bg-violet-400 btn btn-primary">
-              আবেদন করুন
+            <button
+              type="submit"
+              className="block w-full p-3 text-center rounded-xl dark.text-gray-900 dark.bg-violet-400 btn btn-primary"
+              disabled={loading} // Disable the button when loading
+            >
+              {loading ? "অপেক্ষা করুন..." : "আবেদন করুন"}
             </button>
           </form>
 
