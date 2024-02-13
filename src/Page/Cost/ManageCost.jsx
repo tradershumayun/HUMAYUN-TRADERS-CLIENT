@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import AddCost from "./AddCost";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageCost = () => {
   const [costs, setCosts] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
+  const axiosSecure = useAxiosSecure();
 
-  const handleDeleteProduct = (property) => {
+  const handleDeleteProduct = (costId) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -17,7 +20,21 @@ const ManageCost = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(property._id);
+        // Send a request to delete the product
+        axiosSecure.delete(`http://localhost:5000/cost/${costId}`)
+          .then(response => {
+            if (response.status === 200) {
+             
+              setCosts(prevProducts => prevProducts.filter(product => product._id !== costId));
+              Swal.fire("Deleted!", "Your product has been deleted.", "success");
+            } else {
+              Swal.fire("Error!", "Failed to delete the product.", "error");
+            }
+          })
+          .catch(error => {
+            console.error('Error deleting product:', error);
+            Swal.fire("Error!", "Failed to delete the product.", "error");
+          });
       }
     });
   };
@@ -26,11 +43,24 @@ const ManageCost = () => {
     return costs.reduce((total, cost) => total + cost.cost, 0);
   };
 
+  // useEffect(() => {
+  //   fetch("cost.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setCosts(data));
+  // }, []);
+
   useEffect(() => {
-    fetch("cost.json")
-      .then((res) => res.json())
-      .then((data) => setCosts(data));
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axiosSecure.get("/cost");
+        setCosts(response.data);
+      } catch (error) {
+        console.error("Error fetching costs:", error);
+      }
+    };
+
+    fetchData();
+  }, [axiosSecure]);
 
   return (
     <div className="bg-base-200 p-4 m-4 rounded-xl">
@@ -38,19 +68,25 @@ const ManageCost = () => {
         <h2>Manage Cost</h2>
       </div>
       <div className="flex w-full  ">
-        <AddCost className="justify-end items-end" />
+        <Link to="/addCost">
+          <button className=" btn btn-primary">Add Cost</button>
+        </Link>
       </div>
       <h4>Total Cost: {costs?.length}</h4>
       <h4>Total Cost: {getTotalCost()}</h4>
 
       <div className="overflow-x-auto">
         <table className="table">
-          <thead className="text-sm"> </thead>
+          <thead className="text-sm">
+            <th>No</th>
+            <th>cost</th>
+            <th> </th>
+          </thead>
           <tbody>
             {costs.map((cost, index) => (
-              <tr key={index} className="  ">
-                <td>{cost.id}</td>
-                <td>{cost.cost}</td>
+                 <tr key={index}>
+                 <td>{index + 1}</td>
+                <td>{cost?.cost}</td>
                 <td>{cost.costIssues}</td>
                 <td>{cost.costDate}</td>
                 <td>{cost.costType}</td>
@@ -63,7 +99,7 @@ const ManageCost = () => {
                   </button>{" "}
                   <button
                     className="btn btn-sm btn-error"
-                    onClick={() => handleDeleteProduct(cost)}
+                    onClick={() => handleDeleteProduct(cost?._id)}
                   >
                     Delete
                   </button>

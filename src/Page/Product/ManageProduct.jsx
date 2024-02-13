@@ -64,13 +64,14 @@ const ManageProduct = () => {
               <th>Product Quantity</th>
               <th>Product Price</th>
               <th>Product Type</th>
+              <th>Date</th>
       
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {products?.map((product, index) => (
-              <tr key={index} className="  ">
+              <tr key={index}>
                 <td>{index + 1}</td>
 
                 <td>
@@ -79,21 +80,22 @@ const ManageProduct = () => {
                       <div className="mask mask-squircle w-12 h-12">
                         <img
                         
-                          src={product?.image}
+                          src={product?.imageURL}
                           alt="Product Image"
                         />
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{product?.productname}</div>
+                      <div className="font-bold">{product?.productName}</div>
                     </div>
                   </div>
                 </td>
                 <td>{product?.productName}</td>
 
-                <td>{product?.productquantity}</td>
-                <td>{product?.productprice}</td>
-                <td>{product?.producttype}</td>
+                <td>{product?.productQuantity}</td>
+                <td>{product?.productPrice}</td>
+                <td>{product?.ProductType}</td>
+                <td>{product?.date}</td>
              
                 <td className="flex items-center gap-2">
                   <button

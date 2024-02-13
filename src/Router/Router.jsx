@@ -11,6 +11,7 @@ import AllProduct from "../Page/Product/AllProduct";
 import SingleProduct from "../Page/Product/SingleProduct";
 import ShowCost from "../Page/Cost/ManageCost";
 import ManageProduct from "../Page/Product/ManageProduct";
+import AddCost from "../Page/Cost/AddCost";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/cost",
         element: <ShowCost />,
+      },
+      {
+        path: "/addCost",
+        element: <AddCost />,
       },
     ],
   },
