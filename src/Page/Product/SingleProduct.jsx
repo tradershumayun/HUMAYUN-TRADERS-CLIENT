@@ -26,40 +26,47 @@ const SingleProduct = () => {
   }, [axiosSecure, id]);
 
   if (loading) {
-    return <p>Loading...</p>; // You can replace this with a loading spinner or any other UI element.
+    return <p>Loading...</p>;
   }
 
   if (error) {
     return (
-      <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-5 rounded-xl m-5 text-white">
-        <p>Error: {error}</p>
+      <div className="container mx-auto my-8">
+        <p className="text-red-500">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-5 rounded-xl m-5 text-white">
-      <div className="card w-full bg-[#0000005d] rounded-lg shadow-xl">
-        <h2 className="text-xl font-semibold text-center pt-4"></h2>
-        <figure className="m-4">
-          <div className="h-44 w-[500px] rounded-xl bg-base-300">
-            <img
-              className="h-44 rounded-xl mx-auto"
-              src={product?.imageURL}
-              alt={product?.displayName}
-            />
+    <div className="container mx-auto my-8">
+      <div className="bg-gray-800 text-white rounded-lg p-8 shadow-xl">
+        <div className="text-center mb-4">
+          <h2 className="text-3xl font-semibold">{product?.productName}</h2>
+        </div>
+        <div className="max-w-3xl mx-auto">
+          <img
+            className="w-full h-auto rounded-lg mb-4"
+            src={product?.imageURL}
+            alt={product?.displayName}
+          />
+          <div className="text-lg">
+            <p>
+              <span className="font-semibold">Category:</span>{" "}
+              {product?.productType}
+            </p>
+            <p>
+              <span className="font-semibold">Quantity:</span>{" "}
+              {product?.productQuantity}
+            </p>
+            <p>
+              <span className="font-semibold">Price:</span>{" "}
+              ${product?.productPrice}
+            </p>
+            <p>
+              <span className="font-semibold">Description:</span>{" "}
+              {product?.productDescription}
+            </p>
           </div>
-        </figure>
-        <h2 className="text-xl font-semibold text-center pt-4">
-          {product?.productName}
-        </h2>
-        <div className="card-body p-4">
-          <p>
-            Category: {product?.productType} <br />
-            Quantity: {product?.productQuantity} <br />
-            Price: ${product?.productPrice} <br />
-            Description: {product?.productDescription} <br />
-          </p>
         </div>
       </div>
     </div>
