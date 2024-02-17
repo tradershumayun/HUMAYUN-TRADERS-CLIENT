@@ -6,8 +6,9 @@ import { AuthContext } from "../../providers/AuthProvider";
 import AdminMenu from "./Admin/AdminMenu";
 import AgentMenu from "./Agent/AgentMenu";
 import UserMenu from "./User/UserMenu";
-const isAdmin = true;
-const isAgent = true;
+
+import useAdmin from "../../Hook/useAdmin.jsx";
+import useAgent from "../../Hook/useAgent.jsx";
 
 const showSuccessAlert = () => {
   Swal.fire({
@@ -18,6 +19,9 @@ const showSuccessAlert = () => {
 };
 
 const Dashboard = () => {
+  const [isAdmin] = useAdmin();
+  const [isAgent] = useAgent();
+
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
@@ -73,7 +77,6 @@ const Dashboard = () => {
               </div>
               <div className="flex gap-4 justify-center pt-2">
                 <Link to="/profile">
-                   
                   <button className="btn btn-info  px-8">Profile</button>
                 </Link>
 

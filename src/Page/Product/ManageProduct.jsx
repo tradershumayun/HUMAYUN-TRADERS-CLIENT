@@ -72,9 +72,9 @@ const ManageProduct = () => {
               <th>No</th>
               <th>Image</th>
               <th className="text-center">Name</th>
-              <th>Product Quantity</th>
-              <th>Product Price</th>
-              <th>Product Type</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Type</th>
               <th>Date</th>
               <th>Action</th>
             </tr>
