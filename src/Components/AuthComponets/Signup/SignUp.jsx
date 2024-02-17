@@ -99,6 +99,8 @@ const SignUp = () => {
                 phoneNo,
                 nid,
                 userType: "user",
+                AddProduct: [],
+                ByeProduct: [],
               };
 
               axiosPublic.post("/user", data).then(() => {

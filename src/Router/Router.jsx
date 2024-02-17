@@ -13,6 +13,7 @@ import ShowCost from "../Page/Cost/ManageCost";
 import ManageProduct from "../Page/Product/ManageProduct";
 import AddCost from "../Page/Cost/AddCost";
 import ManageUser from "../Page/User/ManageUser";
+import Profile from "../Page/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/Products",
         element: <AllProduct />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/AddProduct",

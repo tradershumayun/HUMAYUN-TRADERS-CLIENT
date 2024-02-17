@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Header from "../../components/Shared/Header/Header";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -41,11 +41,11 @@ const Dashboard = () => {
       className="min-h-screen"
     >
       <Header />
-      <div className="lg:h-[300px] bg-cover bg-center relative">
+      <div className="lg:h-[300px] bg-cover bg-center relative ">
         <div className="container mx-auto">
           <div className=" px-8 lg:p-8">
             <p className="pt-8  text-gray-800">স্বাগতম, {user?.displayName}</p>
-            
+
             <h2 className="text-2xl lg:text-4xl font-bold py-2 lg:py-4 text-left text-gray-950  capitalize">
               {isAdmin ? (
                 <>অ্যাডমিন ড্যাশবোর্ড,</>
@@ -64,18 +64,26 @@ const Dashboard = () => {
             <img
               src={user?.photoURL}
               alt={user?.displayName}
-              className=" h-44 mx-auto rounded-full aspect-square"
+              className=" pt-2 h-44 mx-auto rounded-full aspect-square"
             />
-
-            <div className="space-y-4 text-center divide-y">
+            <h4 className="text-white pt-2">{user?.displayName}</h4>
+            <div className="space-y-2 text-center divide-y">
               <div className="my-4 space-y-1">
-                <h2 className="text-xl font-semibold sm:text-2xl text-white">
-               
-                </h2>
+                <h2 className="text-xl font-semibold sm:text-2xl text-white"></h2>
               </div>
-              <button onClick={handleSignOut} className="btn btn-info  px-8">
-                Log Out
-              </button>
+              <div className="flex gap-4 justify-center pt-2">
+                <Link to="/profile">
+                   
+                  <button className="btn btn-info  px-8">Profile</button>
+                </Link>
+
+                <button
+                  onClick={handleSignOut}
+                  className="btn btn-error    px-8"
+                >
+                  Log-out
+                </button>
+              </div>
             </div>
           </div>
           <div className="justify-around p-8 gap-9 text-center rounded-lg  my-8 bg-[#172554] w-full mx-auto   ">
