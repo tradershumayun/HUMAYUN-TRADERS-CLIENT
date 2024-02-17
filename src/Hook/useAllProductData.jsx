@@ -5,7 +5,7 @@ const useAllProductData = () => {
     
     const axiosPublic = useAxiosPublic();
 
-    const { data: allProduct = [], isLoading: productLoading, refetch: productDataRefrtch, isPending } = useQuery({
+    const { data: allProduct = [], isLoading: productLoading, refetch: productDataRefrtch, isPending, isLoading } = useQuery({
         queryKey: ["AllProduct"],
         queryFn: async () => {
             const res = await axiosPublic.get('/product')
@@ -13,7 +13,7 @@ const useAllProductData = () => {
             return res.data;
         }
     })
-    return {allProduct, productLoading, productDataRefrtch, isPending};
+    return {allProduct, productLoading, productDataRefrtch, isPending, isLoading};
 };
 
 export default useAllProductData;

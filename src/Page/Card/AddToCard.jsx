@@ -3,15 +3,19 @@ import useAllProductData from "../../Hook/useAllProductData";
 
 const AddToCard = () => {
 
-    const {allProduct, productLoading, productDataRefrtch, isPending} = useAllProductData();
+    const {allProduct, productLoading, productDataRefrtch, isLoading} = useAllProductData();
     console.log(allProduct)
+
+    if(isLoading){
+        return <h3>loading</h3>
+    }
 
     return (
         <div>
             <h3 className="text-white">add to card comming soon</h3>
-            <div className="grid grid-cols-2 gap-4 justify-items-center">
 
-
+            {
+                allProduct.map(product=>     <div key={product._id} className="grid grid-cols-2 gap-4 justify-items-center">
                 <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img className="p-8 rounded-t-lg" src="/docs/images/products/apple-watch.png" alt="product image" />
@@ -27,7 +31,9 @@ const AddToCard = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)
+            }
+
             <NavLink className='text-white' to="/checkOut">Check Out Page</NavLink>
         </div>
     );
