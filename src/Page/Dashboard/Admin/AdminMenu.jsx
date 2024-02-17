@@ -34,6 +34,15 @@ const AdminMenu = () => {
             Manage User 
           </li>
         </NavLink>
+        <NavLink to="/addToCard">
+          <li className="btn   btn-primary text-white  w-full">
+            <img
+              src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
+              alt=""
+            />
+            For Sell
+          </li>
+        </NavLink>
       </div>
     </div>
   );

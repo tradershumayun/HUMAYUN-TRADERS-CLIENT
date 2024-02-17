@@ -12,6 +12,8 @@ import SingleProduct from "../Page/Product/SingleProduct";
 import ShowCost from "../Page/Cost/ManageCost";
 import ManageProduct from "../Page/Product/ManageProduct";
 import AddCost from "../Page/Cost/AddCost";
+import AddToCard from "../Page/Card/AddToCard";
+import CheckOut from "../Page/CheckOut/CheckOut";
 import ManageUser from "../Page/User/ManageUser";
 import Profile from "../Page/Profile/Profile";
 import Info from "../Page/Dashboard/Info";
@@ -71,11 +73,20 @@ const router = createBrowserRouter([
         element: <AddCost />,
       },
       {
+        path: "/addToCard",
+        element: <AddToCard></AddToCard>
+      },
+      {
+        path: "/checkOut",
+        element: <CheckOut></CheckOut>
+      },
+      {
         path: "/user",
         element: <ManageUser />,
-      },
+      }
     ],
   },
+  
 ]);
 
 export default router;
