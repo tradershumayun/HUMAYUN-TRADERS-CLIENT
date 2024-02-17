@@ -33,9 +33,6 @@ const AddToCard = () => {
                     </div> )
                 }
             </div>
-
-
-
             <NavLink className='text-white' to="/checkOut"><button className="btn btn-active btn-primary text-white font-semibold mt-5">My Added Product</button></NavLink>
         </div>
     );

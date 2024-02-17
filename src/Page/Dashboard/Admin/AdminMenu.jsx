@@ -4,15 +4,7 @@ const AdminMenu = () => {
   return (
     <div>
       <div className="flex flex-col gap-4">
-        <NavLink to="/AddProduct">
-          <li className="btn   btn-primary text-white  w-full">
-            <img
-              src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
-              alt=""
-            />
-            Add Product
-          </li>
-        </NavLink>
+     
         <NavLink to="/manageProduct">
           <li className="btn   btn-primary text-white  w-full">
             <img
@@ -30,16 +22,16 @@ const AdminMenu = () => {
               src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
               alt=""
             />
-            Cost 
+           Manage Cost 
           </li>
         </NavLink>
-        <NavLink to="/cost">
+        <NavLink to="/user">
           <li className="btn   btn-primary text-white  w-full">
             <img
               src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
               alt=""
             />
-            Contest Submitted Page
+            Manage User 
           </li>
         </NavLink>
         <NavLink to="/addToCard">

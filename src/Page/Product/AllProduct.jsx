@@ -20,8 +20,6 @@ const AllProducts = () => {
           key={product?._id}
           className="card w-full bg-[#0000005d] rounded-lg shadow-xl"
         >
-
-          
           <h2 className="text-xl font-semibold text-center pt-4"></h2>
           <figure className="m-4">
             <div className="h-44 w-[500px] rounded-xl bg-base-300">

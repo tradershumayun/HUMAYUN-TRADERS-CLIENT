@@ -5,10 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosPublic from "../../../Hook/useAxiosPublic";
 
-
 const showSuccessAlert = () => {
-  
-
   Swal.fire({
     icon: "success",
     title: "Success...",
@@ -25,8 +22,7 @@ const showErrorAlert = (error) => {
 };
 
 const Signin = () => {
-  
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
   const location = useLocation();
   const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
@@ -39,16 +35,7 @@ const Signin = () => {
     const password = form.get("password");
     console.log(email, password);
     signIn(email, password)
-      .then((result) => {
-        const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName,
-        };
-
-        axiosPublic.post("/user", userInfo).then((res) => {
-          console.log(res.data);
-        });
-
+      .then(() => {
         showSuccessAlert();
         navigate(location?.state ? location.state : "/");
       })

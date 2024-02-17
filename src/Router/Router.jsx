@@ -14,6 +14,9 @@ import ManageProduct from "../Page/Product/ManageProduct";
 import AddCost from "../Page/Cost/AddCost";
 import AddToCard from "../Page/Card/AddToCard";
 import CheckOut from "../Page/CheckOut/CheckOut";
+import ManageUser from "../Page/User/ManageUser";
+import Profile from "../Page/Profile/Profile";
+import Info from "../Page/Dashboard/Info";
 
 const router = createBrowserRouter([
   {
@@ -34,8 +37,16 @@ const router = createBrowserRouter([
     errorElement: <Page404 />,
     children: [
       {
+        path: "/",
+        element: <Info />,
+      },
+      {
         path: "/Products",
         element: <AllProduct />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/AddProduct",
@@ -45,7 +56,6 @@ const router = createBrowserRouter([
         path: "/Product/:id",
         element: <SingleProduct />,
       },
-
       {
         path: "/manageProduct",
         element: <ManageProduct />,
@@ -69,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "/checkOut",
         element: <CheckOut></CheckOut>
+      },
+      {
+        path: "/user",
+        element: <ManageUser />,
       }
     ],
   },
