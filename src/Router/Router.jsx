@@ -14,6 +14,7 @@ import ManageProduct from "../Page/Product/ManageProduct";
 import AddCost from "../Page/Cost/AddCost";
 import ManageUser from "../Page/User/ManageUser";
 import Profile from "../Page/Profile/Profile";
+import Info from "../Page/Dashboard/Info";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     ),
     errorElement: <Page404 />,
     children: [
+      {
+        path: "/",
+        element: <Info />,
+      },
       {
         path: "/Products",
         element: <AllProduct />,
