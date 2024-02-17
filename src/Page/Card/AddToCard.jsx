@@ -1,13 +1,40 @@
 import { NavLink } from "react-router-dom";
 import useAllProductData from "../../Hook/useAllProductData";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const AddToCard = () => {
+
+    const { user } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
 
     const { allProduct, productLoading, productDataRefrtch, isLoading } = useAllProductData();
     console.log(allProduct)
 
     if (isLoading) {
         return <h3>loading</h3>
+    }
+
+    const handleClick = async (product) =>{
+        console.log('hello', product, user.email)
+        const res = await axiosPublic.post(`/card?userEmail=${user.email}`, product );
+        console.log(res)
+        if(res.status == 200 || res.status == 201){
+            Swal.fire({
+                title: "Success",
+                text: "Congratulations! your product added successfully",
+                icon: "success",
+              });
+        }
+        if(res.status == 202){
+            Swal.fire({
+                title: "Error",
+                text: "Item Already added!",
+                icon: "error",
+              });
+        }
     }
 
     return (
@@ -27,7 +54,7 @@ const AddToCard = () => {
                     
                         <div className="flex items-center justify-between pt-5">
                             <span className="text-xl font-bold text-gray-900 dark:text-white">{product.productPrice} BDT</span>
-                            <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</a>
+                            <button onClick={()=>handleClick(product)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</button>
                         </div>
                     </div>
                     </div> )
