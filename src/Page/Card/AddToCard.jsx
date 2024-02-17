@@ -17,9 +17,9 @@ const AddToCard = () => {
             <div className="grid grid-cols-2 gap-4 justify-items-center">
                 {
                     allProduct.map(product =>  <div key={product._id} className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img className="h-60 w-72 mx-auto max-w-full p-4 rounded-lg object-cover" src={product.imageURL} alt="product image" />
-                    </a>
+                    <div>
+                        <img className="h-48 w-72 mx-auto max-w-full p-4 rounded-lg object-cover" src={product.imageURL} alt="product image" />
+                    </div>
                     <div className="px-5 pb-5">
                         <a href="#">
                             <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{product.productName}</h5>
