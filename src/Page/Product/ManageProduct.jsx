@@ -72,7 +72,6 @@ const ManageProduct = () => {
               <th>No</th>
               <th>Image</th>
               <th className="text-center">Name</th>
-
               <th>Product Quantity</th>
               <th>Product Price</th>
               <th>Product Type</th>

@@ -25,7 +25,7 @@ const AdminMenu = () => {
            Manage Cost 
           </li>
         </NavLink>
-        <NavLink to="/cost">
+        <NavLink to="/user">
           <li className="btn   btn-primary text-white  w-full">
             <img
               src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
