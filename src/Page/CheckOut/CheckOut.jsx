@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import useGetCardData from "../../Hook/useGetCardata";
 
 const CheckOut = () => {
@@ -52,10 +52,16 @@ const CheckOut = () => {
         );
     };
 
+    // Function to delete a product
+    const deleteProduct = (productId) => {
+        setProducts((prevProducts) =>
+            prevProducts.filter((item) => item._id !== productId)
+        );
+    };
+
     // Function to handle checkout
     const handleCheckout = () => {
         // Log item ID with quantity
-        console.log(products);
         products.forEach((item) => {
             console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}`);
         });
@@ -69,7 +75,7 @@ const CheckOut = () => {
 
     return (
         <div>
-            <section className="py-12 sm:py-16 lg:pb-20 lg:pt-9">
+            <section className="h-screen mb-28 py-12 sm:py-16 lg:pb-20 lg:pt-9">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-center">
                         <h1 className="text-2xl font-semibold text-white">
@@ -151,6 +157,7 @@ const CheckOut = () => {
                                                     <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
                                                         <button
                                                             type="button"
+                                                            onClick={() => deleteProduct(item._id)}
                                                             className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
                                                         >
                                                             <svg
@@ -161,9 +168,11 @@ const CheckOut = () => {
                                                                 stroke="currentColor"
                                                             >
                                                                 <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth={2}
                                                                     d="M6 18L18 6M6 6l12 12"
-                                                                    className=""
-                                                                ></path>
+                                                                />
                                                             </svg>
                                                         </button>
                                                     </div>
@@ -192,7 +201,7 @@ const CheckOut = () => {
                                         <span className="text-xs font-normal text-gray-400">
                                             USD
                                         </span>{" "}
-                                        {(subtotal ).toFixed(2)}
+                                        {(subtotal + 8).toFixed(2)}
                                     </p>
                                 </div>
 
