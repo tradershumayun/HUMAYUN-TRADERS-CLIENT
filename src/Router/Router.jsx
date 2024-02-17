@@ -13,6 +13,7 @@ import ShowCost from "../Page/Cost/ManageCost";
 import ManageProduct from "../Page/Product/ManageProduct";
 import AddCost from "../Page/Cost/AddCost";
 import AddToCard from "../Page/Card/AddToCard";
+import CheckOut from "../Page/CheckOut/CheckOut";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/addToCard",
         element: <AddToCard></AddToCard>
+      },
+      {
+        path: "/checkOut",
+        element: <CheckOut></CheckOut>
       }
     ],
   },
