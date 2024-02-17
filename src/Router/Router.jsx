@@ -12,6 +12,7 @@ import SingleProduct from "../Page/Product/SingleProduct";
 import ShowCost from "../Page/Cost/ManageCost";
 import ManageProduct from "../Page/Product/ManageProduct";
 import AddCost from "../Page/Cost/AddCost";
+import AddToCard from "../Page/Card/AddToCard";
 
 const router = createBrowserRouter([
   {
@@ -60,8 +61,13 @@ const router = createBrowserRouter([
         path: "/addCost",
         element: <AddCost />,
       },
+      {
+        path: "/addToCard",
+        element: <AddToCard></AddToCard>
+      }
     ],
   },
+  
 ]);
 
 export default router;
