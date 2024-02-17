@@ -5,30 +5,24 @@ import { toast } from "react-toastify";
 import logo from "../../../assets/logo.png";
 import { AuthContext } from "../../../providers/AuthProvider";
 import "./header.css";
-import useAllProductData from "../../../Hook/useAllProductData";
+
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
-  const {allProduct, productLoading, productDataRefrtch, isPending} = useAllProductData();
-  console.log(allProduct);
 
   const [dbuser, setDbuser] = useState(null);
-  console.log(user?.uid);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/getDeader/${user?.uid}`)
 
       .then((res) => {
         setDbuser(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
-        console.error("Error fetching user data:", error);
       });
   }, [user?.uid]);
 
   const displayName = user?.displayName || dbuser?.displayName;
   const displayPhotoURL = dbuser?.photoURL || user?.photoURL;
-  console.log(displayName);
   const handleSignOut = async () => {
     try {
       await logOut();
