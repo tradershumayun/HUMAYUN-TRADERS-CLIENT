@@ -37,6 +37,7 @@ const Profile = () => {
     const options = { timeZone: "Asia/Dhaka" };
     return gmt6Time.toLocaleString("en-US", options);
   };
+  
   const handleSignOut = async () => {
     try {
       await logOut();

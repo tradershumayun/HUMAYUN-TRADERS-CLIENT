@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 
@@ -14,41 +13,34 @@ const AllProducts = () => {
   });
 
   return (
-    <div className="lg:p-8 space-y-5 text-white rounded-xl lg:m-5 grid gap-2 lg:grid-cols-2 grid-cols-1 ">
+    <div className="grid gap-4 lg:grid-cols-2 grid-cols-1 p-8 m-5">
       {products?.map((product) => (
         <div
           key={product?._id}
-          className="card w-full bg-[#0000005d] rounded-lg shadow-xl"
+          className="bg-gray-800 rounded-lg overflow-hidden shadow-xl"
         >
-          <h2 className="text-xl font-semibold text-center pt-4"></h2>
-          <figure className="m-4">
-            <div className="h-44 w-[500px] rounded-xl bg-base-300">
-              <img
-                className="h-44 rounded-xl mx-auto"
-                src={product?.imageURL}
-                alt={product?.displayName}
-              />
-            </div>
+          <figure>
+            <img
+              className="w-full h-44 object-cover object-center"
+              src={product?.imageURL}
+              alt={product?.displayName}
+            />
           </figure>
-          <h2 className="text-xl font-semibold text-center pt-4">
-            {product?.productName}
-          </h2>
-          <div className="card-body p-4">
-            <p>
+          <div className="p-6">
+            <h2 className="text-2xl font-semibold text-white mb-2">
+              {product?.productName}
+            </h2>
+            <p className="text-sm text-gray-400 mb-4">
               Price: {product?.productPrice} <br />
               Category: {product?.ProductType} <br />
               Quantity: {product?.productQuantity} <br />
             </p>
-            <div className="card-actions flex justify-end grid-cols-3">
-              <Link to={`/UpdateProduct/${product?._id}`}>
-                <button className="text-white bg-green-500  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                  Update
-                </button>
-              </Link>
-              <Link to={`/product/${product?._id}`}>
-                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                  Details
-                </button>
+            <div className="flex justify-end">
+              <Link
+                to={`/product/${product?._id}`}
+                className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Details
               </Link>
             </div>
           </div>

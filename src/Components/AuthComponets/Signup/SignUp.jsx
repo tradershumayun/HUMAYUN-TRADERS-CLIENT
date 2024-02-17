@@ -99,6 +99,7 @@ const SignUp = () => {
                 phoneNo,
                 nid,
                 userType: "user",
+                beach : "0",
                 AddProduct: [],
                 ByeProduct: [],
               };
