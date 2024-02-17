@@ -75,15 +75,12 @@ const Dashboard = () => {
               <div className="my-4 space-y-1">
                 <h2 className="text-xl font-semibold sm:text-2xl text-white"></h2>
               </div>
-              <div className="flex gap-4 justify-center pt-2">
+              <div className="flex gap-4 justify-center pt-3">
                 <Link to="/profile">
                   <button className="btn btn-info  px-8">Profile</button>
                 </Link>
 
-                <button
-                  onClick={handleSignOut}
-                  className="btn btn-error    px-8"
-                >
+                <button onClick={handleSignOut} className="btn btn-error px-8">
                   Log-out
                 </button>
               </div>
