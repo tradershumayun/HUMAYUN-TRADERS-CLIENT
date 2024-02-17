@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ManageProduct = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/product')
-      .then(response => {
+    axios
+      .get("http://localhost:5000/product")
+      .then((response) => {
         setProducts(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching data from API:', error);
+      .catch((error) => {
+        console.error("Error fetching data from API:", error);
       });
   }, []);
 
@@ -27,18 +29,24 @@ const ManageProduct = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Send a request to delete the product
-        axios.delete(`http://localhost:5000/product/${productId}`)
-          .then(response => {
+        axios
+          .delete(`http://localhost:5000/product/${productId}`)
+          .then((response) => {
             if (response.status === 200) {
-             
-              setProducts(prevProducts => prevProducts.filter(product => product._id !== productId));
-              Swal.fire("Deleted!", "Your product has been deleted.", "success");
+              setProducts((prevProducts) =>
+                prevProducts.filter((product) => product._id !== productId)
+              );
+              Swal.fire(
+                "Deleted!",
+                "Your product has been deleted.",
+                "success"
+              );
             } else {
               Swal.fire("Error!", "Failed to delete the product.", "error");
             }
           })
-          .catch(error => {
-            console.error('Error deleting product:', error);
+          .catch((error) => {
+            console.error("Error deleting product:", error);
             Swal.fire("Error!", "Failed to delete the product.", "error");
           });
       }
@@ -50,7 +58,11 @@ const ManageProduct = () => {
       <div className="text-3xl py-2 ">
         <h2> Manage Product</h2>
       </div>
-
+      <div className="flex w-full  ">
+        <Link to="/AddProduct">
+          <button className=" btn btn-primary">Add Product</button>
+        </Link>
+      </div>
       <h4>Total Product: {products?.length}</h4>
 
       <div className="overflow-x-auto">
@@ -65,7 +77,6 @@ const ManageProduct = () => {
               <th>Product Price</th>
               <th>Product Type</th>
               <th>Date</th>
-      
               <th>Action</th>
             </tr>
           </thead>
@@ -73,16 +84,11 @@ const ManageProduct = () => {
             {products?.map((product, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img
-                        
-                          src={product?.imageURL}
-                          alt="Product Image"
-                        />
+                        <img src={product?.imageURL} alt="Product Image" />
                       </div>
                     </div>
                     <div>
@@ -96,7 +102,7 @@ const ManageProduct = () => {
                 <td>{product?.productPrice}</td>
                 <td>{product?.ProductType}</td>
                 <td>{product?.date}</td>
-             
+
                 <td className="flex items-center gap-2">
                   <button
                     className="btn btn-sm btn-error"
