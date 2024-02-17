@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom";
+import useAllProductData from "../../Hook/useAllProductData";
 
 const AddToCard = () => {
+
+    const {allProduct, productLoading, productDataRefrtch, isPending} = useAllProductData();
+    console.log(allProduct)
+
     return (
         <div>
             <h3 className="text-white">add to card comming soon</h3>
