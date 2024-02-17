@@ -92,11 +92,13 @@ const SignUp = () => {
           })
             .then(() => {
               const data = {
+                displayName: result.user.displayName,
                 email: result.user.email,
+                photoURL: res.data?.data?.display_url,
                 address,
                 phoneNo,
                 nid,
-                userRole: "user",
+                userType: "user",
               };
 
               axiosPublic.post("/user", data).then(() => {
