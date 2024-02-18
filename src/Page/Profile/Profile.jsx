@@ -50,6 +50,11 @@ const Profile = () => {
 
   return (
     <div className="bg-base-300   p-8 rounded-lg shadow-md">
+      {dbuser?.userType === "user" && (
+            <h2 className="text-red-500 text-2xl p-4"> 
+আপনি  একজন আবেদনকারী ,এজেন্ট হিসেবে যুক্ত হতে কর্তৃপক্ষের সাথে যোগাযোগ করুন
+            </h2>
+            )} 
       <div className="flex flex-col lg:flex-row w-full">
         <div className="w-full lg:w-1/2">
           <img

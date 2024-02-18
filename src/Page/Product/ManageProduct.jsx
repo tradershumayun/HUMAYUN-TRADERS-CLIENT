@@ -1,11 +1,10 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ManageProduct = () => {
   const [products, setProducts] = useState([]);
-
 
   useEffect(() => {
     axios
@@ -90,10 +89,14 @@ const ManageProduct = () => {
                         <img src={product?.imageURL} alt="Product Image" />
                       </div>
                     </div>
-                     
                   </div>
                 </td>
-                <td>{product?.productName}</td>
+                <Link
+                  className="text-blue-800 font-bold"
+                  to={`/product/${product?._id}`}
+                >
+                  <td>{product?.productName}</td>
+                </Link>
 
                 <td>{product?.productQuantity}</td>
                 <td>{product?.productPrice}</td>
@@ -112,7 +115,6 @@ const ManageProduct = () => {
                     Delete
                   </button>
                 </td>
-                 
               </tr>
             ))}
           </tbody>

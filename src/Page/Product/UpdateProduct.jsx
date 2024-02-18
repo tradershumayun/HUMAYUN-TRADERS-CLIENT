@@ -1,10 +1,11 @@
-import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const UpdateProduct = ({initialData}) => {
+const UpdateProduct = () => {
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -38,52 +39,64 @@ const UpdateProduct = ({initialData}) => {
     );
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const formData = {
+      productName: e.target.productName.value,
+      imageURL: e.target.imageURL.value,
+      productQuantity: e.target.productQuantity.value,
+      productPrice: e.target.productPrice.value,
+      productType: e.target.productType.value,
+      productDescription: e.target.productDescription.value,
+    };
+    try {
+      const updateRes = await axiosSecure.put(`/product/${id}`, formData);
 
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: initialData,
-  });
-
-  const onSubmit = async (data) => {
-    console.log(data);
-    // Add logic to handle product update with the data and productId
+      if (updateRes.data) {
+        navigate("/manageProduct");
+        Swal.fire({
+          text: updateRes.data.message,
+          icon: "success",
+          position: "top-right",
+          timer: 1000,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: updateRes.data.message,
+          position: "top-right",
+        });
+      }
+    } catch (error) {
+      console.error("Error updating product: ", error);
+    }
   };
 
   return (
     <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-3 rounded-xl m-5 text-white">
       <h1 className="text-2xl font-bold text-center">Update Product</h1>
-      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         {/* Product Name */}
         <div className="space-y-1 text-sm">
           <label className="block dark-text-gray-400">Product Name</label>
           <input
-            {...register("ProductName", {
-              required: "Product Name is required",
-            })}
             type="text"
+            name="productName"
+            defaultValue={product?.productName}
             className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
           />
-          {errors.ProductName && (
-            <p className="text-red-500">{errors.ProductName.message}</p>
-          )}
         </div>
 
         {/* Image URL */}
         <div className="space-y-1 text-sm">
           <label className="block dark-text-gray-400">Image URL</label>
           <input
-            {...register("image", { required: "Image URL is required" })}
-            type="file"
+            type="text"
+            name="imageURL"
+            defaultValue={product?.imageURL}
             className="w-full bg-white text-black px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
           />
-          {errors.image && (
-            <p className="text-red-500">{errors.image.message}</p>
-          )}
         </div>
 
         {/* Product Quantity and Product Price */}
@@ -91,28 +104,20 @@ const UpdateProduct = ({initialData}) => {
           <div className="space-y-1 text-sm w-full lg:w-1/2">
             <label className="block dark-text-gray-400">Product Quantity</label>
             <input
-              {...register("ProductQuantity", {
-                required: "Product Quantity is required",
-              })}
               type="number"
+              name="productQuantity"
+              defaultValue={product?.productQuantity}
               className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
             />
-            {errors.ProductQuantity && (
-              <p className="text-red-500">{errors.ProductQuantity.message}</p>
-            )}
           </div>
           <div className="space-y-1 text-sm w-full lg:w-1/2">
             <label className="block dark-text-gray-400">Product Price</label>
             <input
-              {...register("ProductPrice", {
-                required: "Product Price is required",
-              })}
               type="number"
+              name="productPrice"
+              defaultValue={product?.productPrice}
               className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
             />
-            {errors.ProductPrice && (
-              <p className="text-red-500">{errors.ProductPrice.message}</p>
-            )}
           </div>
         </div>
 
@@ -120,9 +125,8 @@ const UpdateProduct = ({initialData}) => {
         <div className="space-y-1 text-sm">
           <label className="block dark-text-gray-400">Product Type/Tags</label>
           <select
-            {...register("ProductType", {
-              required: "Product Type is required",
-            })}
+            name="productType"
+            defaultValue={product?.productType}
             className="w-full px-4 py-3 rounded-md text-black"
           >
             {/* Update options based on your product types */}
@@ -131,9 +135,6 @@ const UpdateProduct = ({initialData}) => {
             <option value="Type3">Type 3</option>
             <option value="Type4">Type 4</option>
           </select>
-          {errors.ProductType && (
-            <p className="text-red-500">{errors.ProductType.message}</p>
-          )}
         </div>
 
         {/* Product Description */}
@@ -142,14 +143,10 @@ const UpdateProduct = ({initialData}) => {
             Product Description
           </label>
           <textarea
-            {...register("ProductDescription", {
-              required: "Product Description is required",
-            })}
+            name="productDescription"
+            defaultValue={product?.productDescription}
             className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
           />
-          {errors.ProductDescription && (
-            <p className="text-red-500">{errors.ProductDescription.message}</p>
-          )}
         </div>
 
         {/* Submit Button */}

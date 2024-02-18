@@ -116,7 +116,7 @@ const ManageUser = () => {
                       >
                         <option value="isAdmin">Admin</option>
                         <option value="isAgent">Agent</option>
-                        <option value="user">User</option>
+                        <option value="user">out service</option>
                       </select>
                       <button type="submit" className="btn btn-sm btn-primary ">
                         Action
