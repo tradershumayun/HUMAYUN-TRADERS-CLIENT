@@ -71,17 +71,16 @@ const ManageProduct = () => {
             <tr>
               <th>No</th>
               <th>Image</th>
-              <th className="text-center">Name</th>
+              <th>Name</th>
               <th>Quantity</th>
               <th>Price</th>
               <th>Type</th>
-               
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {products?.map((product, index) => (
-              <tr key={index}>
+              <tr className="border-b-1 border-gray-300" key={index}>
                 <td>{index + 1}</td>
                 <td>
                   <div className="flex items-center gap-3">
@@ -90,9 +89,7 @@ const ManageProduct = () => {
                         <img src={product?.imageURL} alt="Product Image" />
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">{product?.productName}</div>
-                    </div>
+                     
                   </div>
                 </td>
                 <td>{product?.productName}</td>
@@ -100,21 +97,21 @@ const ManageProduct = () => {
                 <td>{product?.productQuantity}</td>
                 <td>{product?.productPrice}</td>
                 <td>{product?.ProductType}</td>
-                <td>{product?.date}</td>
 
-                <td className="flex items-center gap-2">
-                  <Link to={`/UpdateProduct/${product?._id}`}>
-                    <button className="btn text-white bg-green-500  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                      Update
+                <td className="   ">
+                  <Link to={`/UpdateProduct/${product?._id}`} className="m-1">
+                    <button className="btn btn-warning btn-sm marker: ">
+                      Edit
                     </button>
                   </Link>
                   <button
-                    className="btn btn-sm btn-error"
+                    className="btn btn-sm btn-error m-1"
                     onClick={() => handleDeleteProduct(product?._id)}
                   >
                     Delete
                   </button>
                 </td>
+                 
               </tr>
             ))}
           </tbody>

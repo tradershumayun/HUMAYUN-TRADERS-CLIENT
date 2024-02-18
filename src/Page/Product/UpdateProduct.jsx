@@ -1,7 +1,51 @@
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const UpdateProduct = ({ productId, initialData }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+const UpdateProduct = ({initialData}) => {
+  const axiosSecure = useAxiosSecure();
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axiosSecure.get(`/product/${id}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error("Error fetching product data: ", error);
+        setError("Error fetching product data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [axiosSecure, id]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto my-8">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
+
+
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: initialData,
   });
 
@@ -94,7 +138,9 @@ const UpdateProduct = ({ productId, initialData }) => {
 
         {/* Product Description */}
         <div className="space-y-1 text-sm">
-          <label className="block dark-text-gray-400">Product Description</label>
+          <label className="block dark-text-gray-400">
+            Product Description
+          </label>
           <textarea
             {...register("ProductDescription", {
               required: "Product Description is required",
