@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useGetCardData from "../../Hook/useGetCardata";
 import useGetAllUserData from "../../Hook/useGetAllUserData";
 
 const CheckOut = () => {
     const { product, productLoading } = useGetCardData();
-    const { users, userLoading } = useGetAllUserData();
-
-    const [selectedUserId, setSelectedUserId] = useState("");
-
-    if (productLoading || userLoading) {
-        return <h3>Loading...</h3>;
-    }
-
-    const [products, setProducts] = useState(
-        product.cardItems.map((item) => ({ ...item, quantity: 1 }))
-    );
+    const { users } = useGetAllUserData();
+  
+    const [selectedUserId, setSelectedUserId] = useState(""); // State to store selected user ID
+    const [products, setProducts] = useState([]);
+  
+    useEffect(() => {
+      if (!productLoading && product) {
+        setProducts(product.cardItems.map((item) => ({ ...item, quantity: 1 })));
+      }
+    }, [productLoading, product]);
 
     const handleQuantityChange = (event, productId) => {
         const newQuantity = parseInt(event.target.value);
@@ -60,6 +59,7 @@ const CheckOut = () => {
 
     const handleCheckout = () => {
         console.log("Selected User ID:", selectedUserId);
+        console.log(products);
         products.forEach((item) => {
             console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}`);
         });
