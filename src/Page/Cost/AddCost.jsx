@@ -35,7 +35,6 @@ const AddCost = () => {
       }
     } catch (error) {
       console.error("Error adding property:", error);
-      
     }
   };
 
@@ -45,6 +44,19 @@ const AddCost = () => {
         <h3 className="font-bold text-lg">Add a Product</h3>
         <form className="space-y-6 " onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-1 text-sm">
+            <div className="space-y-1 text-sm">
+              <label className="block dark-text-gray-400">Cost Issues</label>
+              <input
+                {...register("costIssues", {
+                  required: "Cost Issues is required",
+                })}
+                type="text"
+                className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
+              />
+              {errors.costIssues && (
+                <p className="text-red-500">{errors.costIssues.message}</p>
+              )}
+            </div>
             <label className="block dark-text-gray-400">Cost (tk)</label>
             <input
               {...register("cost", {
@@ -70,19 +82,7 @@ const AddCost = () => {
               <p className="text-red-500">{errors.costDate.message}</p>
             )}
           </div>
-          <div className="space-y-1 text-sm">
-            <label className="block dark-text-gray-400">Cost Issues</label>
-            <input
-              {...register("costIssues", {
-                required: "Cost Issues is required",
-              })}
-              type="text"
-              className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
-            />
-            {errors.costIssues && (
-              <p className="text-red-500">{errors.costIssues.message}</p>
-            )}
-          </div>
+
           <div className="space-y-1 text-sm">
             <label className="block dark-text-gray-400">Cost Type</label>
 

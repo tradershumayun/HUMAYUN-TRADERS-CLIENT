@@ -12,7 +12,7 @@ const AddProduct = () => {
     reset,
     formState: { errors },
   } = useForm({
-    mode: 'onChange',  // This helps with displaying errors for file inputs
+    mode: 'onChange', 
   });
   const axiosPublic = useAxiosPublic();
   
@@ -63,7 +63,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="rounded-xl bg-base-200 p-8 ">
+    <div className="rounded-xl  text-white p-8 ">
       <h1 className="text-2xl font-bold text-center">Add a Product</h1>
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-1 text-sm">

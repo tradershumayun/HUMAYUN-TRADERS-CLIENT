@@ -1,11 +1,10 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ManageProduct = () => {
   const [products, setProducts] = useState([]);
-
 
   useEffect(() => {
     axios
@@ -72,17 +71,16 @@ const ManageProduct = () => {
             <tr>
               <th>No</th>
               <th>Image</th>
-              <th className="text-center">Name</th>
+              <th>Name</th>
               <th>Quantity</th>
               <th>Price</th>
               <th>Type</th>
-              <th>Date</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {products?.map((product, index) => (
-              <tr key={index}>
+              <tr className="border-b-1 border-gray-300" key={index}>
                 <td>{index + 1}</td>
                 <td>
                   <div className="flex items-center gap-3">
@@ -91,21 +89,27 @@ const ManageProduct = () => {
                         <img src={product?.imageURL} alt="Product Image" />
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">{product?.productName}</div>
-                    </div>
                   </div>
                 </td>
-                <td>{product?.productName}</td>
+                <Link
+                  className="text-blue-800 font-bold"
+                  to={`/product/${product?._id}`}
+                >
+                  <td>{product?.productName}</td>
+                </Link>
 
                 <td>{product?.productQuantity}</td>
                 <td>{product?.productPrice}</td>
                 <td>{product?.ProductType}</td>
-                <td>{product?.date}</td>
 
-                <td className="flex items-center gap-2">
+                <td className="   ">
+                  <Link to={`/UpdateProduct/${product?._id}`} className="m-1">
+                    <button className="btn btn-warning btn-sm marker: ">
+                      Edit
+                    </button>
+                  </Link>
                   <button
-                    className="btn btn-sm btn-error"
+                    className="btn btn-sm btn-error m-1"
                     onClick={() => handleDeleteProduct(product?._id)}
                   >
                     Delete

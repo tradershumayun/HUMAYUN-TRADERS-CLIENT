@@ -17,6 +17,7 @@ import CheckOut from "../Page/CheckOut/CheckOut";
 import ManageUser from "../Page/User/ManageUser";
 import Profile from "../Page/Profile/Profile";
 import Info from "../Page/Dashboard/Info";
+import Analysis from "../Page/Analysis/Analysis";
 
 const router = createBrowserRouter([
   {
@@ -74,19 +75,22 @@ const router = createBrowserRouter([
       },
       {
         path: "/addToCard",
-        element: <AddToCard></AddToCard>
+        element: <AddToCard></AddToCard>,
       },
       {
         path: "/checkOut",
-        element: <CheckOut></CheckOut>
+        element: <CheckOut></CheckOut>,
       },
       {
         path: "/user",
         element: <ManageUser />,
-      }
+      },
+      {
+        path: "/analysis",
+        element: <Analysis />,
+      }, 
     ],
   },
-  
 ]);
 
 export default router;

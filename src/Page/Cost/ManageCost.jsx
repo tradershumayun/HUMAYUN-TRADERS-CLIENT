@@ -72,31 +72,29 @@ const ManageCost = () => {
           <button className=" btn btn-primary">Add Cost</button>
         </Link>
       </div>
-      <h4>Total Cost: {costs?.length}</h4>
-      <h4>Total Cost: {getTotalCost()}</h4>
+      <h4>Total No: {costs?.length}</h4>
+      <h4>Total Cost: {getTotalCost()} TK</h4>
 
       <div className="overflow-x-auto">
         <table className="table">
           <thead className="text-sm">
             <th>No</th>
             <th>cost</th>
-            <th> </th>
+            <th>Issues</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Action</th>
           </thead>
           <tbody>
             {costs.map((cost, index) => (
                  <tr key={index}>
                  <td>{index + 1}</td>
-                <td>{cost?.cost}</td>
+                <td>{cost?.cost} tk</td>
                 <td>{cost.costIssues}</td>
-                <td>{cost.costDate}</td>
+                <td>{new Date(cost.costDate).toLocaleDateString("en-GB")}</td>
                 <td>{cost.costType}</td>
-                <td className="flex gap-2">
-                  <button
-                    className="btn btn-sm btn-warning"
-                    onClick={() => setShowEditModal(true)}
-                  >
-                    Edit
-                  </button>{" "}
+                <td>
+                   
                   <button
                     className="btn btn-sm btn-error"
                     onClick={() => handleDeleteProduct(cost?._id)}
