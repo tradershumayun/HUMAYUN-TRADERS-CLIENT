@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+
+import Swal from "sweetalert2";
 
 const SingleProduct = () => {
   const axiosSecure = useAxiosSecure();
@@ -8,7 +13,7 @@ const SingleProduct = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
-
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -36,6 +41,28 @@ const SingleProduct = () => {
       </div>
     );
   }
+
+  const handleClick = async (product) => {
+    const res = await axiosSecure.post(
+      `/card?userEmail=${user.email}`,
+      product
+    );
+    console.log(res);
+    if (res.status == 200 || res.status == 201) {
+      Swal.fire({
+        title: "Success",
+        text: "Congratulations! your product added successfully",
+        icon: "success",
+      });
+    }
+    if (res.status == 202) {
+      Swal.fire({
+        title: "Error",
+        text: "Item Already added!",
+        icon: "error",
+      });
+    }
+  };
 
   return (
     <div className="container mx-auto my-8 text-white">
@@ -66,13 +93,18 @@ const SingleProduct = () => {
             {product?.ProductType}
           </p>{" "}
           <p>
-            <span className="font-bold text-blue-500">Product Description: </span>
+            <span className="font-bold text-blue-500">
+              Product Description:{" "}
+            </span>
             {product?.productDescription}
           </p>
           <div className="flex gap-4 mt-4">
-            <Link>
-              <button className="btn btn-warning px-8"> order now </button>
-            </Link>
+            <button
+              onClick={() => handleClick(product)}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
