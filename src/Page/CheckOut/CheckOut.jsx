@@ -5,14 +5,15 @@ import useGetAllUserData from "../../Hook/useGetAllUserData";
 const CheckOut = () => {
     const { product, productLoading } = useGetCardData();
     const { users } = useGetAllUserData();
-  
+
     const [selectedUserId, setSelectedUserId] = useState(""); // State to store selected user ID
+    const [due, setDue] = useState(""); // State to store selected user ID
     const [products, setProducts] = useState([]);
-  
+
     useEffect(() => {
-      if (!productLoading && product) {
-        setProducts(product.cardItems.map((item) => ({ ...item, quantity: 1 })));
-      }
+        if (!productLoading && product) {
+            setProducts(product.cardItems.map((item) => ({ ...item, quantity: 1 })));
+        }
     }, [productLoading, product]);
 
     const handleQuantityChange = (event, productId) => {
@@ -61,7 +62,7 @@ const CheckOut = () => {
         console.log("Selected User ID:", selectedUserId);
         console.log(products);
         products.forEach((item) => {
-            console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}`);
+            console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}, due: ${due}`);
         });
     };
 
@@ -181,25 +182,40 @@ const CheckOut = () => {
                                     </ul>
                                 </div>
                                 <div className="mt-6 border-t border-b py-2">
-                                    <div className="text-center">
-                                        <div className="flex items-center justify-center">
-                                            <label htmlFor="userSelect" className="mr-2">
-                                                Select User:
-                                            </label>
-                                            <select
-                                                id="userSelect"
-                                                onChange={(e) => setSelectedUserId(e.target.value)}
-                                                className="px-4 py-2 border rounded-md bg-gray-100"
-                                            >
-                                                <option value="">Select a User</option>
-                                                {users
-                                                    .filter((user) => user.userRole === "user")
-                                                    .map((user) => (
-                                                        <option key={user._id} value={user._id}>
-                                                            {user.displayName}
-                                                        </option>
-                                                    ))}
-                                            </select>
+                                    <div className="flex justify-between">
+                                        <div className="text-center">
+                                            <div className="flex items-center justify-center">
+                                                <label htmlFor="userSelect" className="mr-2">
+                                                    Select User:
+                                                </label>
+                                                <select
+                                                    id="userSelect"
+                                                    onChange={(e) => setSelectedUserId(e.target.value)}
+                                                    className="px-4 py-2 border rounded-md bg-gray-100"
+                                                >
+                                                    <option value="">Select a User</option>
+                                                    {users
+                                                        .filter((user) => user.userRole === "user")
+                                                        .map((user) => (
+                                                            <option key={user._id} value={user._id}>
+                                                                {user.displayName}
+                                                            </option>
+                                                        ))}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="flex items-center justify-center">
+                                                <label htmlFor="due" className="mr-2">
+                                                    Due (if any):
+                                                </label>
+                                                <input
+                                                    id="due"
+                                                    onChange={(e) => setDue(e.target.value)}
+                                                    className="px-2 w-24 py-2 border rounded-md bg-gray-100"
+                                                >
+                                                </input>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
