@@ -5,13 +5,12 @@ import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import Swal from "sweetalert2";
 
+
 const AddToCard = () => {
 
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
-
-    const { allProduct, productLoading, productDataRefrtch, isLoading } = useAllProductData();
-    console.log(allProduct)
+    const { allProduct, isLoading } = useAllProductData();
 
     if (isLoading) {
         return <h3>loading</h3>
