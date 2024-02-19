@@ -21,6 +21,10 @@ import Analysis from "../Page/Analysis/Analysis";
 import SingleProfile from "../Page/Profile/SingleProfile";
 import InvaliodAdmin from "../Page/InvaliodUser/InvaliodAdmin";
 import AdminRouter from "./AdminRouter";
+import AgentAnalysis from "../Page/Analysis/AgentAnalysis";
+import AgentRouter from "./AgentRouter";
+import BuyList from "../Page/Dashboard/Agent/BuyList";
+import OrderList from "../Page/Dashboard/Agent/OrderList";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
     ),
     errorElement: <Page404 />,
     children: [
+      {
+        path: "/invalidAdmin",
+        element: <InvaliodAdmin />,
+      },
       {
         path: "/",
         element: <Info />,
@@ -115,11 +123,35 @@ const router = createBrowserRouter([
       },
       {
         path: "/analysis",
-        element: <Analysis />,
+        element: (
+          <AdminRouter>
+            <Analysis />
+          </AdminRouter>
+        ),
       },
       {
-        path: "/invalidAdmin",
-        element: <InvaliodAdmin />,
+        path: "/agentAnalysis",
+        element: (
+          <AgentRouter>
+            <AgentAnalysis />
+          </AgentRouter>
+        ),
+      },
+      {
+        path: "/buyList",
+        element: (
+          <BuyList>
+            <AgentAnalysis />
+          </BuyList>
+        ),
+      },
+      {
+        path: "/orderList",
+        element: (
+          <OrderList>
+            <AgentAnalysis />
+          </OrderList>
+        ),
       },
     ],
   },
