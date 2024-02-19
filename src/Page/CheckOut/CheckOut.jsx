@@ -7,7 +7,7 @@ const CheckOut = () => {
     const { users } = useGetAllUserData();
 
     const [selectedUserId, setSelectedUserId] = useState("");
-    const [due, setDue] = useState("");
+    const [due, setDue] = useState(0);
     const [discount, setDiscount] = useState(0);
     const [products, setProducts] = useState([]);
 
@@ -213,7 +213,7 @@ const CheckOut = () => {
                                                 </label>
                                                 <input
                                                     id="due"
-                                                    onChange={(e) => setDue(e.target.value)}
+                                                    onChange={(e) => setDue(parseInt(e.target.value))}
                                                     className="px-2 w-24 py-2 border rounded-md bg-gray-100"
                                                 >
                                                 </input>
@@ -237,15 +237,46 @@ const CheckOut = () => {
                                     </div>
                                 </div>
 
+                                <div className="mt-6 border-t border-b py-2">
+                                    <div className="flex items-center justify-between">
+                                        <p className="text-sm text-gray-400">Total Cost</p>
+                                        <p className="text-lg font-semibold text-gray-900">
+                                            ${subtotal.toFixed(2)}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <p className="text-sm text-gray-400">Discount</p>
+
+                                        {
+                                            discount > 0 ? <p className="text-lg font-semibold text-gray-900">${discount}.00</p> : <p className="text-lg font-semibold text-gray-900">$00.00</p>
+                                        }
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <p className="text-sm text-gray-400">Due Ammount</p>
+
+                                        {
+                                            due > 0 ? <p className="text-lg font-semibold text-gray-900">${due}.00</p> : <p className="text-lg font-semibold text-gray-900">$00.00</p>
+                                        }
+                                    </div>
+                                </div>
+
                                 <div className="mt-6 flex items-center justify-between">
-                                    <p className="text-sm font-medium text-gray-900">Total</p>
+                                    <p className="text-sm font-medium text-gray-900">Total Ammount</p>
                                     <p className="text-2xl font-semibold text-gray-900">
                                         <span className="text-xs font-normal text-gray-400">
                                             USD
                                         </span>{" "}
-                                        {
-                                            discount > 0 ? <div>{(subtotal - discount).toFixed(2)}</div> : <div>{(subtotal).toFixed(2)}</div>
-                                        }
+                                       {
+                                        subtotal < 0 ? <div><h3>invite</h3></div> : <div> {
+                                            due > 0 ? <div>{
+                                                discount > 0 ? <div>{(subtotal - (discount+due)).toFixed(2)}</div> : <div>{(subtotal-due).toFixed(2)}</div>
+                                            }</div> 
+                                            : 
+                                            <div>{
+                                                discount > 0 ? <div>{(subtotal - discount).toFixed(2)}</div> : <div>{(subtotal).toFixed(2)}</div>
+                                            }</div>
+                                        }</div>
+                                       }
                                     </p>
                                 </div>
 
