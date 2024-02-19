@@ -279,11 +279,11 @@ const CheckOut = () => {
                                             due > 0 ? <div>{
                                                 discount > 0 ? <div>
                                                     {
-                                                        subtotal - (discount + due) < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - (discount + due)).toFixed(2)}</div>
+                                                        subtotal - (discount + due) < 1 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - (discount + due)).toFixed(2)}</div>
                                                     }
                                                 </div> : <div>
                                                     {
-                                                        subtotal - due < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - due).toFixed(2)}</div>
+                                                        subtotal - due < 1 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - due).toFixed(2)}</div>
                                                     }
                                                 </div>
                                             }</div>
@@ -291,7 +291,7 @@ const CheckOut = () => {
                                                 <div>{
                                                     discount > 0 ? <div>
                                                         {
-                                                            subtotal - discount < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - discount).toFixed(2)}</div>
+                                                            subtotal - discount < 1 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - discount).toFixed(2)}</div>
                                                         }
                                                     </div> : <div>{(subtotal).toFixed(2)}</div>
                                                 }</div>
