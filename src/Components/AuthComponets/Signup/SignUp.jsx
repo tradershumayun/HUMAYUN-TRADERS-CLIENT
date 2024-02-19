@@ -95,21 +95,19 @@ const SignUp = () => {
                 displayName: result.user.displayName,
                 email: result.user.email,
                 photoURL: res.data?.data?.display_url,
-                
+
                 address,
                 phoneNo,
                 nid,
                 userType: "user",
-                beach : "0",
+                beach: "0",
                 productCollection: [
                   {
                     dueAmmout: 0,
                     totalPurches: 0,
-                    purchesProductCollection: [
-                      
-                    ]
-                  }
-                ]
+                    purchesProductCollection: [],
+                  },
+                ],
               };
               axiosPublic.post("/user", data).then(() => {
                 setLoading(false);
