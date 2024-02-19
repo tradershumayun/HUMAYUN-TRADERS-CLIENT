@@ -266,22 +266,47 @@ const CheckOut = () => {
                                         <span className="text-xs font-normal text-gray-400">
                                             USD
                                         </span>{" "}
-                                       {
-                                        subtotal < 0 ? <div><h3>invite</h3></div> : <div> {
+                                        {
                                             due > 0 ? <div>{
-                                                discount > 0 ? <div>{(subtotal - (discount+due)).toFixed(2)}</div> : <div>{(subtotal-due).toFixed(2)}</div>
+                                                discount > 0 ? <div>
+                                                    {
+                                                        subtotal - (discount+due) < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div>: <div>{(subtotal - (discount+due)).toFixed(2)}</div>
+                                                    }
+                                                </div> : <div>
+                                                    {
+                                                        subtotal-due < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal-due).toFixed(2)}</div>
+                                                    }
+                                                </div>
                                             }</div> 
                                             : 
                                             <div>{
-                                                discount > 0 ? <div>{(subtotal - discount).toFixed(2)}</div> : <div>{(subtotal).toFixed(2)}</div>
+                                                discount > 0 ? <div>
+                                                    {
+                                                        subtotal - discount < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - discount).toFixed(2)}</div>
+                                                    }
+                                                </div> : <div>{(subtotal).toFixed(2)}</div>
                                             }</div>
-                                        }</div>
-                                       }
+                                        }
                                     </p>
                                 </div>
 
                                 <div className="mt-6 text-center">
-                                    <button
+                                    {
+                                        subtotal - (discount+due) || subtotal-due || subtotal - discount < 0 ? <button
+                                        type="button"
+                                        className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
+                                    >
+                                        Checkout
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className=" ml-4 h-6 w-6 "
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </button> : <button
                                         type="button"
                                         onClick={handleCheckout}
                                         className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
@@ -297,6 +322,8 @@ const CheckOut = () => {
                                             <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                         </svg>
                                     </button>
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>
