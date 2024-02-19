@@ -1,15 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useGetCardData from "../../Hook/useGetCardata";
 import useGetAllUserData from "../../Hook/useGetAllUserData";
+import { GrDisabledOutline } from "react-icons/gr";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
+import { AuthContext } from "../../providers/AuthProvider";
+
 
 const CheckOut = () => {
     const { product, productLoading } = useGetCardData();
+    const { user } = useContext(AuthContext)
     const { users } = useGetAllUserData();
+    const axiosPublic = useAxiosPublic();
 
     const [selectedUserId, setSelectedUserId] = useState("");
     const [due, setDue] = useState(0);
     const [discount, setDiscount] = useState(0);
     const [products, setProducts] = useState([]);
+    const temp = discount + due;
 
     useEffect(() => {
         if (!productLoading && product) {
@@ -53,10 +60,12 @@ const CheckOut = () => {
         );
     };
 
-    const deleteProduct = (productId) => {
+    const deleteProduct = async(productId) => {
         setProducts((prevProducts) =>
             prevProducts.filter((item) => item._id !== productId)
         );
+        const res = await axiosPublic.delete(`/card/delete?id=${productId}&user=${user.email}`);
+        console.log(res.data);
     };
 
     const handleCheckout = () => {
@@ -197,7 +206,7 @@ const CheckOut = () => {
                                                 >
                                                     <option value="">Select a User</option>
                                                     {users
-                                                        .filter((user) => user.userRole === "user")
+                                                        .filter((user) => user.userType === "isAgent")
                                                         .map((user) => (
                                                             <option key={user._id} value={user._id}>
                                                                 {user.displayName}
@@ -270,60 +279,86 @@ const CheckOut = () => {
                                             due > 0 ? <div>{
                                                 discount > 0 ? <div>
                                                     {
-                                                        subtotal - (discount+due) < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div>: <div>{(subtotal - (discount+due)).toFixed(2)}</div>
+                                                        subtotal - (discount + due) < 1 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - (discount + due)).toFixed(2)}</div>
                                                     }
                                                 </div> : <div>
                                                     {
-                                                        subtotal-due < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal-due).toFixed(2)}</div>
+                                                        subtotal - due < 1 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - due).toFixed(2)}</div>
                                                     }
                                                 </div>
-                                            }</div> 
-                                            : 
-                                            <div>{
-                                                discount > 0 ? <div>
-                                                    {
-                                                        subtotal - discount < 0 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - discount).toFixed(2)}</div>
-                                                    }
-                                                </div> : <div>{(subtotal).toFixed(2)}</div>
                                             }</div>
+                                                :
+                                                <div>{
+                                                    discount > 0 ? <div>
+                                                        {
+                                                            subtotal - discount < 1 ? <div><h3><span className="text-xl text-red-600">Invalid amout</span></h3></div> : <div>{(subtotal - discount).toFixed(2)}</div>
+                                                        }
+                                                    </div> : <div>{(subtotal).toFixed(2)}</div>
+                                                }</div>
                                         }
                                     </p>
                                 </div>
 
                                 <div className="mt-6 text-center">
                                     {
-                                        subtotal - (discount+due) || subtotal-due || subtotal - discount < 0 ? <button
-                                        type="button"
-                                        className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
-                                    >
-                                        Checkout
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className=" ml-4 h-6 w-6 "
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                        </svg>
-                                    </button> : <button
-                                        type="button"
-                                        onClick={handleCheckout}
-                                        className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
-                                    >
-                                        Checkout
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                        </svg>
-                                    </button>
+                                        subtotal - temp < 1 ?
+                                            <button
+                                                type="button"
+                                                className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
+                                            >
+                                                Disabled
+                                                <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
+                                            </button>
+                                            :
+
+                                            <div>
+                                                {
+                                                    subtotal - due < 1 ? <button
+                                                        type="button"
+                                                        className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
+                                                    >
+                                                        Disabled
+                                                        <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
+                                                    </button> :
+                                                        <div>
+                                                            {
+                                                                subtotal - discount < 1 ? <button
+                                                                    type="button"
+                                                                    className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
+                                                                >
+                                                                    Disabled
+                                                                    <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
+                                                                </button> : <div>
+                                                                    {
+                                                                        subtotal < 1 ? <button
+                                                                        type="button"
+                                                                        className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
+                                                                    >
+                                                                        Disabled
+                                                                        <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
+                                                                    </button> : <button
+                                                                        type="button"
+                                                                        onClick={handleCheckout}
+                                                                        className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
+                                                                    >
+                                                                        Checkout
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
+                                                                            fill="none"
+                                                                            viewBox="0 0 24 24"
+                                                                            stroke="currentColor"
+                                                                        >
+                                                                            <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                                                        </svg>
+                                                                    </button>
+                                                                    }
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                }
+                                            </div>
                                     }
-                                    
                                 </div>
                             </div>
                         </div>

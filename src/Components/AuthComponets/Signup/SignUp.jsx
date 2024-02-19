@@ -101,13 +101,8 @@ const SignUp = () => {
                 nid,
                 userType: "user",
                 beach: "0",
-                productCollection: [
-                  {
-                    dueAmmout: 0,
-                    totalPurches: 0,
-                    purchesProductCollection: [],
-                  },
-                ],
+                totalDueAmmout: 0,
+                purchesProductCollection: [],
               };
               axiosPublic.post("/user", data).then(() => {
                 setLoading(false);
@@ -118,13 +113,13 @@ const SignUp = () => {
             .catch((error) => {
               showErrorAlert(error.message);
               setLoading(false);
-             
+
             });
         })
         .catch((error) => {
           showErrorAlert(error.message);
           setLoading(false);
-          
+
         });
     } finally {
       // setLoading(false);
