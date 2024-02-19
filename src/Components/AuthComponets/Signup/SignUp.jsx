@@ -95,6 +95,7 @@ const SignUp = () => {
                 displayName: result.user.displayName,
                 email: result.user.email,
                 photoURL: res.data?.data?.display_url,
+                date: res.data?.data?.metadata.creationTime,
                 address,
                 phoneNo,
                 nid,

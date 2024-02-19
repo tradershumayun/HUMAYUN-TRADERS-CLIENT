@@ -18,6 +18,7 @@ import ManageUser from "../Page/User/ManageUser";
 import Profile from "../Page/Profile/Profile";
 import Info from "../Page/Dashboard/Info";
 import Analysis from "../Page/Analysis/Analysis";
+import SingleProfile from "../Page/Profile/SingleProfile";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,9 @@ const router = createBrowserRouter([
       {
         path: "/user",
         element: <ManageUser />,
+      }, {
+        path: "/singleUserInfo/:id",
+        element: <SingleProfile />,
       },
       {
         path: "/analysis",

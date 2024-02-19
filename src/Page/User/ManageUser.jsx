@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageUser = () => {
   const axiosSecure = useAxiosSecure();
@@ -77,7 +78,7 @@ const ManageUser = () => {
             <th>No</th>
             <th>image</th>
             <th>Name</th>
-            <th>Email</th>
+
             <th>Role</th>
           </thead>
           <tbody>
@@ -98,14 +99,15 @@ const ManageUser = () => {
                 </td>
                 <td>
                   <div>
-                    <div className="font-bold">{user?.displayName}</div>
+                    <Link
+                      className="text-blue-800 font-bold"
+                      to={`/singleUserInfo/${user?._id}`}
+                    >
+                      <div className="font-bold">{user?.displayName}</div>
+                      {!user?.displayName && <span> {user?.email}</span>}
+                    </Link>
                   </div>
                 </td>{" "}
-                <td>
-                  <div>
-                    <div className="font-bold">{user?.email}</div>
-                  </div>
-                </td>
                 <td>
                   <form onSubmit={(e) => handleRoleChange(e, user)}>
                     <div className=" text-sm flex gap-2">

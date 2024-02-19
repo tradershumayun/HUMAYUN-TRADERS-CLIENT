@@ -102,10 +102,8 @@ const Profile = () => {
             {dbuser?.userType}
           </p>
 
-          <div className="flex gap-4 mt-4">
-            <Link>
-              <button className="btn btn-warning px-8">Edit Profile</button>
-            </Link>
+          <div className="flex gap-4 mt-4 justify-end">
+            
             <button onClick={handleSignOut} className="btn btn-error px-8">
               Log-out
             </button>
