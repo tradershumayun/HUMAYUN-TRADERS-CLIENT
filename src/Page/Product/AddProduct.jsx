@@ -82,7 +82,7 @@ const AddProduct = () => {
         </div>
 
         <div className="space-y-1 text-sm">
-          <label className="block dark-text-gray-400">Image URL</label>
+          <label className="block dark-text-gray-400">Image  </label>
           <input
             {...register("photoURL", { required: "Image URL is required" })}
             type="file"
