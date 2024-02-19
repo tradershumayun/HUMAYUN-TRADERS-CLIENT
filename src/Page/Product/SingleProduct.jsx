@@ -70,7 +70,7 @@ const SingleProduct = () => {
           <img
             src={product?.imageURL}
             alt={product?.productName}
-            className="w-64 h-64 mx-auto rounded-full  aspect-square"
+            className="w-64   mx-auto   "
           />
         </div>
         <div className="w-full lg:w-1/2 text-left mt-4 lg:ml-8">
