@@ -110,7 +110,6 @@ const SignUp = () => {
                   }
                 ]
               };
-
               axiosPublic.post("/user", data).then(() => {
                 setLoading(false);
                 showSuccessAlert();
