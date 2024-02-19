@@ -101,10 +101,16 @@ const SignUp = () => {
                 nid,
                 userType: "user",
                 beach : "0",
-                AddProduct: [],
-                ByeProduct: [],
+                productCollection: [
+                  {
+                    dueAmmout: 0,
+                    totalPurches: 0,
+                    purchesProductCollection: [
+                      
+                    ]
+                  }
+                ]
               };
-
               axiosPublic.post("/user", data).then(() => {
                 setLoading(false);
                 showSuccessAlert();
