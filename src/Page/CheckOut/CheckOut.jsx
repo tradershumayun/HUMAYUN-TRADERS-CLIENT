@@ -206,7 +206,7 @@ const CheckOut = () => {
                                                 >
                                                     <option value="">Select a User</option>
                                                     {users
-                                                        .filter((user) => user.userRole === "user")
+                                                        .filter((user) => user.userType === "isAgent")
                                                         .map((user) => (
                                                             <option key={user._id} value={user._id}>
                                                                 {user.displayName}
