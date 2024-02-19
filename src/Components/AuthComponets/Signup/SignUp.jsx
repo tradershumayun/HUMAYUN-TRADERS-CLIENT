@@ -95,7 +95,7 @@ const SignUp = () => {
                 displayName: result.user.displayName,
                 email: result.user.email,
                 photoURL: res.data?.data?.display_url,
-                date: res.data?.data?.metadata.creationTime,
+                
                 address,
                 phoneNo,
                 nid,
@@ -177,7 +177,7 @@ const SignUp = () => {
                 name="displayName"
                 id="displayName"
                 placeholder="name"
-                className="w-full  border px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
+                className="w-full  border px-4 py-3 rounded-md  focus:dark:border-violet-400"
                 required
               />
             </div>
@@ -202,7 +202,7 @@ const SignUp = () => {
                 onChange={handleEmailChange}
                 id="email"
                 placeholder="Email"
-                className="w-full border px-4 py-3 rounded-md dark:border-gray-700 dark.bg-gray-900 dark:text-gray-100 focus:dark-border-violet-400"
+                className="w-full border px-4 py-3 rounded-md    focus:dark-border-violet-400"
                 required
               />
             </div>
@@ -217,7 +217,7 @@ const SignUp = () => {
                 onChange={handleAddressChange}
                 id="address"
                 placeholder="Address"
-                className="w-full border px-4 py-3 rounded-md dark:border-gray-700 dark.bg-gray-900 dark:text-gray-100 focus:dark-border-violet-400"
+                className="w-full border px-4 py-3 rounded-md    focus:dark-border-violet-400"
                 required
               />
             </div>
@@ -232,7 +232,7 @@ const SignUp = () => {
                 onChange={handlePhoneNoChange}
                 id="PhoneNo"
                 placeholder="Phone No"
-                className="w-full border px-4 py-3 rounded-md dark:border-gray-700 dark.bg-gray-900 dark:text-gray-100 focus:dark-border-violet-400"
+                className="w-full border px-4 py-3 rounded-md    focus:dark-border-violet-400"
                 required
               />
             </div>
@@ -247,7 +247,7 @@ const SignUp = () => {
                 onChange={handlenidChange}
                 id="nid"
                 placeholder="nid No"
-                className="w-full border px-4 py-3 rounded-md dark:border-gray-700 dark.bg-gray-900 dark:text-gray-100 focus:dark-border-violet-400"
+                className="w-full border px-4 py-3 rounded-md    focus:dark-border-violet-400"
                 required
               />
             </div>
