@@ -47,7 +47,7 @@ const ManageUser = () => {
     axiosSecure
       .patch(`/user/${user._id}`, { role: newRole })
       .then((res) => {
-        console.log(res.data);
+      
         if (res.data.modifiedCount > 0) {
           refetch();
           Swal.fire({

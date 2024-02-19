@@ -118,13 +118,13 @@ const SignUp = () => {
             .catch((error) => {
               showErrorAlert(error.message);
               setLoading(false);
-              console.log(error);
+             
             });
         })
         .catch((error) => {
           showErrorAlert(error.message);
           setLoading(false);
-          console.log(error);
+          
         });
     } finally {
       // setLoading(false);

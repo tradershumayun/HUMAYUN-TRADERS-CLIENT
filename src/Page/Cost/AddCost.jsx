@@ -13,7 +13,7 @@ const AddCost = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
+ 
       const res = await axiosSecure.post("/cost", data);
 
       if (res.data.insertedId === null) {

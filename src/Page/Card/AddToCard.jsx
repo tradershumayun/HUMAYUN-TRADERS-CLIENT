@@ -15,12 +15,12 @@ const AddToCard = () => {
   }
 
   const handleClick = async (product) => {
-    console.log("hello", product, user.email);
+    
     const res = await axiosPublic.post(
       `/card?userEmail=${user.email}`,
       product
     );
-    console.log(res);
+    
     if (res.status == 200 || res.status == 201) {
       Swal.fire({
         title: "Success",
