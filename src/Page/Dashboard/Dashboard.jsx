@@ -45,12 +45,14 @@ const Dashboard = () => {
       className="min-h-screen"
     >
       <Header />
-      <div className="lg:h-[300px] bg-cover bg-center relative hidden ">
+      <div className="lg:h-[300px] md:h-[100px] bg-cover bg-center lg:relative      ">
         <div className="container mx-auto">
           <div className=" px-8 lg:p-8">
-            <p className="pt-8  text-gray-800">স্বাগতম, {user?.displayName}</p>
+            <p className="lg:pt-8 pt-3  text-gray-800">
+              স্বাগতম, {user?.displayName}
+            </p>
 
-            <h2 className="text-2xl lg:text-4xl font-bold py-2 lg:py-4 text-left text-gray-950  capitalize">
+            <h2 className="text-xl lg:text-4xl font-bold py-0 lg:py-4 text-left text-gray-950  capitalize">
               {isAdmin ? (
                 <>অ্যাডমিন ড্যাশবোর্ড,</>
               ) : isAgent ? (
@@ -64,18 +66,19 @@ const Dashboard = () => {
       </div>
       <div className="flex flex-col lg:flex-row w-full container mx-auto  gap-5 ">
         <div className="w-full lg:w-1/3  p-4  sticky top-10">
-          <div className="justify-around p-4 text-center rounded-lg lg:-mt-32 bg-[#172554] w-full mx-auto ">
-            <img
-              src={user?.photoURL}
-              alt={user?.displayName}
-              className=" pt-2 h-44 mx-auto rounded-full aspect-square"
-            />
-            <h4 className="text-white pt-2">{user?.displayName}</h4>
-            <div className="space-y-2 text-center divide-y">
-              <div className="my-4 space-y-1">
-                <h2 className="text-xl font-semibold sm:text-2xl text-white"></h2>
-              </div>
-              <div className="flex gap-4 justify-center pt-3">
+          <div className="justify-around p-4 text-center rounded-lg lg:-mt-32 bg-[#172554] w-full mx-auto flex lg:flex-col gap-4">
+            <div className="">
+              <img
+                src={user?.photoURL}
+                alt={user?.displayName}
+                className="   h-28   lg:h-44 mx-auto rounded-full aspect-square"
+              />
+            </div>
+
+            <div className="space-y-2 text-center divide-y  ">
+              <h4 className="text-white lg:pt-4">Name: {user?.displayName}</h4>
+
+              <div className="flex gap-4 justify-center pt-3   ">
                 <Link to="/profile">
                   <button className="btn btn-info  px-8">Profile</button>
                 </Link>
