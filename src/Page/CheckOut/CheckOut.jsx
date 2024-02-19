@@ -6,8 +6,9 @@ const CheckOut = () => {
     const { product, productLoading } = useGetCardData();
     const { users } = useGetAllUserData();
 
-    const [selectedUserId, setSelectedUserId] = useState(""); // State to store selected user ID
-    const [due, setDue] = useState(""); // State to store selected user ID
+    const [selectedUserId, setSelectedUserId] = useState("");
+    const [due, setDue] = useState("");
+    const [discount, setDiscount] = useState(0);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -62,7 +63,7 @@ const CheckOut = () => {
         console.log("Selected User ID:", selectedUserId);
         console.log(products);
         products.forEach((item) => {
-            console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}, due: ${due}`);
+            console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}, due: ${due}, discount: ${discount}`);
         });
     };
 
@@ -181,6 +182,7 @@ const CheckOut = () => {
                                         ))}
                                     </ul>
                                 </div>
+
                                 <div className="mt-6 border-t border-b py-2">
                                     <div className="flex justify-between">
                                         <div className="text-center">
@@ -219,13 +221,31 @@ const CheckOut = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className=" border-b py-2">
+                                    <div>
+                                        <div className="flex items-center justify-center">
+                                            <label htmlFor="due" className="mr-2">
+                                                Discount Ammout (if any):
+                                            </label>
+                                            <input
+                                                id="due"
+                                                onChange={(e) => setDiscount(parseInt(e.target.value))}
+                                                className="px-2 w-36 py-2 border rounded-md bg-gray-100"
+                                            >
+                                            </input>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="mt-6 flex items-center justify-between">
                                     <p className="text-sm font-medium text-gray-900">Total</p>
                                     <p className="text-2xl font-semibold text-gray-900">
                                         <span className="text-xs font-normal text-gray-400">
                                             USD
                                         </span>{" "}
-                                        {(subtotal).toFixed(2)}
+                                        {
+                                            discount > 0 ? <div>{(subtotal - discount).toFixed(2)}</div> : <div>{(subtotal).toFixed(2)}</div>
+                                        }
                                     </p>
                                 </div>
 
