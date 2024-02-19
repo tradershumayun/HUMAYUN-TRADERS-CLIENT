@@ -18,6 +18,9 @@ import ManageUser from "../Page/User/ManageUser";
 import Profile from "../Page/Profile/Profile";
 import Info from "../Page/Dashboard/Info";
 import Analysis from "../Page/Analysis/Analysis";
+import SingleProfile from "../Page/Profile/SingleProfile";
+import InvaliodAdmin from "../Page/InvaliodUser/InvaliodAdmin";
+import AdminRouter from "./AdminRouter";
 
 const router = createBrowserRouter([
   {
@@ -59,19 +62,38 @@ const router = createBrowserRouter([
       },
       {
         path: "/manageProduct",
-        element: <ManageProduct />,
+        element: (
+          <AdminRouter>
+            <ManageProduct />
+          </AdminRouter>
+        ),
       },
       {
         path: "/UpdateProduct/:id",
-        element: <UpdateProduct />,
+        element: (
+          <AdminRouter>
+            <UpdateProduct />
+          </AdminRouter>
+        ),
       },
+
       {
         path: "/cost",
-        element: <ShowCost />,
+        element: (
+          <AdminRouter>
+            <ShowCost />
+          </AdminRouter>
+        ),
       },
+
       {
         path: "/addCost",
-        element: <AddCost />,
+
+        element: (
+          <AdminRouter>
+            <AddCost />
+          </AdminRouter>
+        ),
       },
       {
         path: "/addToCard",
@@ -81,14 +103,24 @@ const router = createBrowserRouter([
         path: "/checkOut",
         element: <CheckOut></CheckOut>,
       },
+
       {
         path: "/user",
         element: <ManageUser />,
       },
+
+      {
+        path: "/singleUserInfo/:id",
+        element: <SingleProfile />,
+      },
       {
         path: "/analysis",
         element: <Analysis />,
-      }, 
+      },
+      {
+        path: "/invalidAdmin",
+        element: <InvaliodAdmin />,
+      },
     ],
   },
 ]);

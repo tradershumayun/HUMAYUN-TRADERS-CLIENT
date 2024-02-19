@@ -20,7 +20,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosSecure.get(`/user/${user?.email}`);
+        const response = await axiosSecure.get(`/user/email/${user?.email}`);
         setDbuser(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -37,7 +37,7 @@ const Profile = () => {
     const options = { timeZone: "Asia/Dhaka" };
     return gmt6Time.toLocaleString("en-US", options);
   };
-  
+
   const handleSignOut = async () => {
     try {
       await logOut();
@@ -51,10 +51,11 @@ const Profile = () => {
   return (
     <div className="bg-base-300   p-8 rounded-lg shadow-md">
       {dbuser?.userType === "user" && (
-            <h2 className="text-red-500 text-2xl p-4"> 
-আপনি  একজন আবেদনকারী ,এজেন্ট হিসেবে যুক্ত হতে কর্তৃপক্ষের সাথে যোগাযোগ করুন
-            </h2>
-            )} 
+        <h2 className="text-red-500 text-2xl p-4">
+          আপনি একজন আবেদনকারী ,এজেন্ট হিসেবে যুক্ত হতে কর্তৃপক্ষের সাথে যোগাযোগ
+          করুন
+        </h2>
+      )}
       <div className="flex flex-col lg:flex-row w-full">
         <div className="w-full lg:w-1/2">
           <img
@@ -102,10 +103,7 @@ const Profile = () => {
             {dbuser?.userType}
           </p>
 
-          <div className="flex gap-4 mt-4">
-            <Link>
-              <button className="btn btn-warning px-8">Edit Profile</button>
-            </Link>
+          <div className="flex gap-4 mt-4 justify-end">
             <button onClick={handleSignOut} className="btn btn-error px-8">
               Log-out
             </button>

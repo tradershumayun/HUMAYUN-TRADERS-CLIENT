@@ -1,44 +1,10 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import logo from "../../../assets/logo.png";
-import { AuthContext } from "../../../providers/AuthProvider";
+
 import "./header.css";
 
 const Header = () => {
-  const { user, logOut } = useContext(AuthContext);
-
-  const [dbuser, setDbuser] = useState(null);
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/getDeader/${user?.uid}`)
-
-      .then((res) => {
-        setDbuser(res.data);
-      })
-      .catch((error) => {});
-  }, [user?.uid]);
-
-  const displayName = user?.displayName || dbuser?.displayName;
-  const displayPhotoURL = dbuser?.photoURL || user?.photoURL;
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-      toast.info("You are just log out ", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
   const menu = (
     <>
       <li className="flex">

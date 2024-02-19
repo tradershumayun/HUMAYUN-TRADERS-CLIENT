@@ -4,7 +4,6 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-
 import Swal from "sweetalert2";
 
 const SingleProduct = () => {
