@@ -13,7 +13,6 @@ const AdminRouter = ({ children }) => {
     queryKey: ["user", user.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/user/email/${user?.email}`);
-
       return res.data;
     },
   });

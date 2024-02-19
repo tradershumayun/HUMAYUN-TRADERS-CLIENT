@@ -45,7 +45,7 @@ const Dashboard = () => {
       className="min-h-screen"
     >
       <Header />
-      <div className="lg:h-[300px] bg-cover bg-center relative ">
+      <div className="lg:h-[300px] bg-cover bg-center relative hidden ">
         <div className="container mx-auto">
           <div className=" px-8 lg:p-8">
             <p className="pt-8  text-gray-800">স্বাগতম, {user?.displayName}</p>
