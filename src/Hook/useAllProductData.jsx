@@ -9,7 +9,7 @@ const useAllProductData = () => {
         queryKey: ["AllProduct"],
         queryFn: async () => {
             const res = await axiosPublic.get('/product')
-            console.log(res.data)
+      
             return res.data;
         }
     })

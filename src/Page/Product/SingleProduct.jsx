@@ -46,7 +46,7 @@ const SingleProduct = () => {
       `/card?userEmail=${user.email}`,
       product
     );
-    console.log(res);
+    
     if (res.status == 200 || res.status == 201) {
       Swal.fire({
         title: "Success",
