@@ -306,7 +306,7 @@ const CheckOut = () => {
                                                 type="button"
                                                 className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
                                             >
-                                                disabled
+                                                Disabled
                                                 <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
                                             </button>
                                             :
@@ -317,7 +317,7 @@ const CheckOut = () => {
                                                         type="button"
                                                         className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
                                                     >
-                                                        disabled
+                                                        Disabled
                                                         <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
                                                     </button> :
                                                         <div>
@@ -326,7 +326,7 @@ const CheckOut = () => {
                                                                     type="button"
                                                                     className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
                                                                 >
-                                                                    disabled
+                                                                    Disabled
                                                                     <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
                                                                 </button> : <div>
                                                                     {
@@ -334,7 +334,7 @@ const CheckOut = () => {
                                                                         type="button"
                                                                         className="group inline-flex w-full items-center justify-center rounded-md bg-[#666666] px-6 py-4 text-lg font-semibold text-white "
                                                                     >
-                                                                        disabled
+                                                                        Disabled
                                                                         <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
                                                                     </button> : <button
                                                                         type="button"
