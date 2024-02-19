@@ -35,13 +35,11 @@ const AgentRouter = ({ children }) => {
     );
   }
 
-    if (  userData.userType === "isAdmin") {
-      return children;
-    }
+  if (userData.userType === "isAgent") {
+    return children;
+  }
 
-    return <Navigate state={location.pathname} to="/invalidAdmin" />;
-  
+  return <Navigate state={location.pathname} to="/invalidAdmin" />;
 };
- 
 
 export default AgentRouter;

@@ -72,8 +72,11 @@ const ManageCost = () => {
           <button className=" btn btn-primary">Add Cost</button>
         </Link>
       </div>
-      <h4>Total No: {costs?.length}</h4>
-      <h4>Total Cost: {getTotalCost()} TK</h4>
+      <div className="flex justify-evenly">
+        <h4>Total No: {costs?.length}</h4>
+        <h4>Total Cost: {getTotalCost()} TK</h4>
+      </div>
+      <hr className="py-2" />
 
       <div className="overflow-x-auto">
         <table className="table">

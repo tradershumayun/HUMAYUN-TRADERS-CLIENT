@@ -29,11 +29,11 @@ const Signin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget);
+   
     const form = new FormData(e.currentTarget);
     const email = form.get("email");
     const password = form.get("password");
-    console.log(email, password);
+   
     signIn(email, password)
       .then(() => {
         showSuccessAlert();
@@ -41,7 +41,7 @@ const Signin = () => {
       })
 
       .catch((error) => {
-        console.log(error);
+         
         if (error.code === "auth/invalid-login-credentials") {
           showErrorAlert("Email or password is incorrect.");
         } else {
