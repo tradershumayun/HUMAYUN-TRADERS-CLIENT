@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useGetCardData from "../../Hook/useGetCardata";
 import useGetAllUserData from "../../Hook/useGetAllUserData";
 import { GrDisabledOutline } from "react-icons/gr";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const CheckOut = () => {
     const { product, productLoading } = useGetCardData();
+    const { user } = useContext(AuthContext)
     const { users } = useGetAllUserData();
     const axiosPublic = useAxiosPublic();
 
@@ -58,11 +60,12 @@ const CheckOut = () => {
         );
     };
 
-    const deleteProduct = (productId) => {
+    const deleteProduct = async(productId) => {
         setProducts((prevProducts) =>
             prevProducts.filter((item) => item._id !== productId)
         );
-
+        const res = await axiosPublic.delete(`/card/delete?id=${productId}&user=${user.email}`);
+        console.log(res.data);
     };
 
     const handleCheckout = () => {
