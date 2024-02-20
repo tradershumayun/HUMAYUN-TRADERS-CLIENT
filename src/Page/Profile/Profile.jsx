@@ -69,6 +69,10 @@ const Profile = () => {
         <div className="w-full lg:w-1/2 text-left mt-4 lg:ml-8">
           <p className="text-xl font-bold mb-4">Your Profile</p>
           <p>
+            <span className="font-bold text-blue-500">Beach No: </span>
+            {dbuser?.beach}
+          </p>
+          <p>
             <span className="font-bold text-blue-500">Name:</span>{" "}
             {user?.displayName}
           </p>

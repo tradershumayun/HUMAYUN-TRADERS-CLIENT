@@ -25,6 +25,7 @@ import AgentAnalysis from "../Page/Analysis/AgentAnalysis";
 import AgentRouter from "./AgentRouter";
 import BuyList from "../Page/Dashboard/Agent/BuyList";
 import OrderList from "../Page/Dashboard/Agent/OrderList";
+import EditProfile from "../Page/Profile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,13 @@ const router = createBrowserRouter([
         element: <SingleProduct />,
       },
       {
+        path: "/EditProfile/:id",
+        element: (
+          <AdminRouter>
+            <EditProfile/>
+          </AdminRouter>
+        ),
+      },  {
         path: "/manageProduct",
         element: (
           <AdminRouter>

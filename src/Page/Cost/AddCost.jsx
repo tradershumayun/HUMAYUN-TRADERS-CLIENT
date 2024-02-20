@@ -9,6 +9,7 @@ const AddCost = () => {
     register,
     handleSubmit,
     formState: { errors },
+    
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -41,7 +42,7 @@ const AddCost = () => {
   return (
     <div>
       <div className="rounded-xl bg-base-200 p-8 ">
-        <h3 className="font-bold text-lg">Add a Product</h3>
+        <h3 className="font-bold text-lg">Add a Cost</h3>
         <form className="space-y-6 " onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-1 text-sm">
             <div className="space-y-1 text-sm">

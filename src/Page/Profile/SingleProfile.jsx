@@ -1,41 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import EditProfile from "./EditProfile";
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const SingleProfile = () => {
   const { id } = useParams();
+
   const axiosSecure = useAxiosSecure();
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: user = [], } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/user/${id}`);
+      return res.data;
+    },
+  });
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axiosSecure.get(`/user/${id}`);
-        setUser(response.data);
-      } catch (error) {
-        console.error("Error fetching   data: ", error);
-        setError("Error fetching   data");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [axiosSecure, id]);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return (
-      <div className="container mx-auto my-8">
-        <p className="text-red-500">{error}</p>
-      </div>
-    );
-  }
   const convertToBdTime = (timestamp) => {
     const gmt6Time = new Date(timestamp);
     const options = { timeZone: "Asia/Dhaka" };
@@ -45,9 +26,7 @@ const SingleProfile = () => {
   return (
     <div className="bg-base-300   p-8 rounded-lg shadow-md">
       {user?.userType === "user" && (
-        <h2 className="text-gray-500  p-4">
-          সে একজন আবেদনকারী
-        </h2>
+        <h2 className="text-gray-500  p-4">সে একজন আবেদনকারী</h2>
       )}
       <div className="flex flex-col lg:flex-row w-full">
         <div className="w-full lg:w-1/2">
@@ -87,22 +66,31 @@ const SingleProfile = () => {
           </p>
           <p>
             <span className="font-bold text-blue-500">Role No:</span>
-            {user?.userType} 
-          </p> 
-          <p>
-            <span className="font-bold text-blue-500">Beach No:  </span>{!user?.beach && <span>Beach No select</span>}
-            {user?.beach}
-          </p><p>
-            <span className="font-bold text-blue-500">Total Buy </span>{" "}
-            .......
+            {user?.userType}
           </p>
           <p>
-            <span className="font-bold text-blue-500">Total Duo </span>{" "}
-            .......
+            <span className="font-bold text-blue-500">Beach No: </span>
+            {!user?.beach && <span>Beach No select</span>}
+            {user?.beach}
+          </p>
+          <p>
+            <span className="font-bold text-blue-500">Total Buy </span> .......
+          </p>
+          <p>
+            <span className="font-bold text-blue-500">Total Duo </span> .......
           </p>
 
           <div className="flex gap-4 mt-4 justify-end"></div>
         </div>
+      </div>
+      <div className="flex gap-4 mt-4">
+      <Link
+                      className="text-blue-800 font-bold"
+                      to={`/EditProfile/${user?._id}`}
+                    > 
+        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Edit User info
+        </button></Link>
       </div>
     </div>
   );

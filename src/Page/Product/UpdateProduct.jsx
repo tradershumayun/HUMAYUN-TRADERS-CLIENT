@@ -45,8 +45,8 @@ const UpdateProduct = () => {
     const formData = {
       productName: e.target.productName.value,
       imageURL: e.target.imageURL.value,
-      productQuantity: e.target.productQuantity.value,
-      productPrice: e.target.productPrice.value,
+      productQuantity: parseInt(e.target.productQuantity.value), 
+      productPrice: parseInt(e.target.productPrice.value),
       productType: e.target.productType.value,
       productDescription: e.target.productDescription.value,
     };

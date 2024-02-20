@@ -100,7 +100,7 @@ const SignUp = () => {
                 phoneNo,
                 nid,
                 userType: "user",
-                beach: "0",
+                beach: "no select",
                 totalDueAmmout: 0,
                 purchesProductCollection: [],
               };
