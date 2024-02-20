@@ -7,15 +7,15 @@ import useAxiosPublic from "../../Components/hook/useAxiosPublic";
 
 const AddProduct = () => {
   const {
-    register, 
+    register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({
-    mode: 'onChange', 
+    mode: "onChange",
   });
   const axiosPublic = useAxiosPublic();
-  
+
   const { user } = useContext(AuthContext);
 
   const apiKey = "ce962703e172614d7c982b1ffcc21721";
@@ -33,13 +33,17 @@ const AddProduct = () => {
       });
 
       const productData = {
-        ...data,
+        productName: data.productName,
+        ProductType: data.ProductType,
+        productPrice: parseFloat(data.productPrice),
+        productQuantity: parseInt(data.productQuantity),
+        productDescription: data.productDescription,
+
         imageURL: res.data.data.url,
         ownerEmail: user?.email,
       };
- 
+      console.log(productData);
       const productRes = await axiosPublic.post("/product", productData);
-
 
       if (productRes.data) {
         reset({
@@ -82,7 +86,7 @@ const AddProduct = () => {
         </div>
 
         <div className="space-y-1 text-sm">
-          <label className="block dark-text-gray-400">Image  </label>
+          <label className="block dark-text-gray-400">Image </label>
           <input
             {...register("photoURL", { required: "Image URL is required" })}
             type="file"
@@ -132,10 +136,10 @@ const AddProduct = () => {
             })}
             className="w-full px-4 py-3 rounded-md text-black"
           >
-            <option value="Business">Type 1</option>
-            <option value="Business">Type 1</option>
-            <option value="Business">Type 1</option>
-            <option value="Business">Type 1</option>
+            <option value="type1">Type 1</option>
+            <option value="type2">Type 2</option>
+            <option value="type3">Type 3</option>
+            <option value="type4">Type 4</option>
           </select>
           {errors.ProductType && (
             <p className="text-red-500">{errors.ProductType.message}</p>
