@@ -95,13 +95,13 @@ const SignUp = () => {
                 displayName: result.user.displayName,
                 email: result.user.email,
                 photoURL: res.data?.data?.display_url,
-
                 address,
                 phoneNo,
                 nid,
                 userType: "user",
                 beach: "no select",
                 totalDueAmmout: 0,
+                totalPurchesAmmount: 0,
                 purchesProductCollection: [],
               };
               axiosPublic.post("/user", data).then(() => {

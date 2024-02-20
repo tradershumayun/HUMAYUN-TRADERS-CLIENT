@@ -4,6 +4,8 @@ import useGetAllUserData from "../../Hook/useGetAllUserData";
 import { GrDisabledOutline } from "react-icons/gr";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 const CheckOut = () => {
@@ -11,6 +13,7 @@ const CheckOut = () => {
     const { user } = useContext(AuthContext)
     const { users } = useGetAllUserData();
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
     const [selectedUserId, setSelectedUserId] = useState("");
     const [due, setDue] = useState(0);
@@ -68,12 +71,39 @@ const CheckOut = () => {
         console.log(res.data);
     };
 
-    const handleCheckout = () => {
+    const handleCheckout = async() => {
         console.log("Selected User ID:", selectedUserId);
         console.log(products);
         products.forEach((item) => {
             console.log(`Item ID: ${item?._id}, Quantity: ${item.quantity}, due: ${due}, discount: ${discount}`);
         });
+        const res = await axiosPublic.post(`/sell?sellerEmail=${user.email}&buyerId=${selectedUserId}&discount=${discount}&due=${due}&totalPrice=${subtotal}`, products);
+        console.log(res);
+
+        if(res.status === 201){
+            Swal.fire({
+                title: "Error",
+                text: "Please select a valid agent!",
+                icon: "error",
+              });
+        }
+        if(res.status === 202){
+            Swal.fire({
+                title: "Error",
+                text: `${res?.data?.message}`,
+                icon: "error",
+              });
+        }
+        if(res.status === 200){
+            const res = await axiosPublic.delete(`/card/deleteAllCard?user=${user.email}`);
+            console.log(res);
+            Swal.fire({
+                title: "Success",
+                text: "Products sell successfully",
+                icon: "success",
+              });
+              navigate('/');
+        }
     };
 
     const subtotal = products?.reduce(
@@ -113,9 +143,6 @@ const CheckOut = () => {
                                                         <div className="pr-8 sm:pr-5">
                                                             <p className="text-base font-semibold text-gray-900">
                                                                 {item?.productName}
-                                                            </p>
-                                                            <p className="mx-0 mt-1 mb-0 text-sm text-gray-400">
-                                                                Id: {item?._id}
                                                             </p>
                                                         </div>
 
