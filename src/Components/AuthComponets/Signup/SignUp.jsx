@@ -101,6 +101,7 @@ const SignUp = () => {
                 userType: "user",
                 beach: "0",
                 totalDueAmmout: 0,
+                totalPurchesAmmount: 0,
                 purchesProductCollection: [],
               };
               axiosPublic.post("/user", data).then(() => {

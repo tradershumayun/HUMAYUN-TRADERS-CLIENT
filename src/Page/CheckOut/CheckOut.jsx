@@ -68,12 +68,14 @@ const CheckOut = () => {
         console.log(res.data);
     };
 
-    const handleCheckout = () => {
+    const handleCheckout = async() => {
         console.log("Selected User ID:", selectedUserId);
         console.log(products);
         products.forEach((item) => {
             console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}, due: ${due}, discount: ${discount}`);
         });
+        const res = await axiosPublic.post(`/sell?sellerEmail=${user.email}&buyerId=${selectedUserId}&discount=${discount}&due=${due}&totalPrice=${subtotal}`, products);
+        console.log(res);
     };
 
     const subtotal = products.reduce(
@@ -113,9 +115,6 @@ const CheckOut = () => {
                                                         <div className="pr-8 sm:pr-5">
                                                             <p className="text-base font-semibold text-gray-900">
                                                                 {item.productName}
-                                                            </p>
-                                                            <p className="mx-0 mt-1 mb-0 text-sm text-gray-400">
-                                                                {item.productDescription}
                                                             </p>
                                                         </div>
 
