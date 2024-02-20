@@ -144,9 +144,6 @@ const CheckOut = () => {
                                                             <p className="text-base font-semibold text-gray-900">
                                                                 {item?.productName}
                                                             </p>
-                                                            <p className="mx-0 mt-1 mb-0 text-sm text-gray-400">
-                                                                {item.productDescription}
-                                                            </p>
                                                         </div>
 
                                                         <div className="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
