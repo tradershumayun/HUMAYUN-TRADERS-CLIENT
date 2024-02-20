@@ -55,8 +55,8 @@ const CheckOut = () => {
     const decrementQuantity = (productId) => {
         setProducts((prevProducts) =>
             prevProducts.map((item) => {
-                if (item._id === productId && item.quantity > 1) {
-                    return { ...item, quantity: item.quantity - 1 };
+                if (item._id === productId && item?.quantity > 1) {
+                    return { ...item, quantity: item?.quantity - 1 };
                 }
                 return item;
             })
@@ -65,7 +65,7 @@ const CheckOut = () => {
 
     const deleteProduct = async(productId) => {
         setProducts((prevProducts) =>
-            prevProducts.filter((item) => item._id !== productId)
+            prevProducts.filter((item) => item?._id !== productId)
         );
         const res = await axiosPublic.delete(`/card/delete?id=${productId}&user=${user.email}`);
         console.log(res.data);
@@ -75,7 +75,7 @@ const CheckOut = () => {
         console.log("Selected User ID:", selectedUserId);
         console.log(products);
         products.forEach((item) => {
-            console.log(`Item ID: ${item._id}, Quantity: ${item.quantity}, due: ${due}, discount: ${discount}`);
+            console.log(`Item ID: ${item?._id}, Quantity: ${item.quantity}, due: ${due}, discount: ${discount}`);
         });
         const res = await axiosPublic.post(`/sell?sellerEmail=${user.email}&buyerId=${selectedUserId}&discount=${discount}&due=${due}&totalPrice=${subtotal}`, products);
         console.log(res);
@@ -106,8 +106,8 @@ const CheckOut = () => {
         }
     };
 
-    const subtotal = products.reduce(
-        (total, item) => total + item.quantity * parseFloat(item.productPrice),
+    const subtotal = products?.reduce(
+        (total, item) => total + item?.quantity * parseFloat(item?.productPrice),
         0
     );
 
@@ -127,14 +127,14 @@ const CheckOut = () => {
                                     <ul className="-my-8">
                                         {products?.map((item) => (
                                             <li
-                                                key={item._id}
+                                                key={item?._id}
                                                 className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
                                             >
                                                 <div className="shrink-0">
                                                     <img
                                                         className="h-24 w-24 max-w-full rounded-lg object-cover"
-                                                        src={item.imageURL}
-                                                        alt={item.productName}
+                                                        src={item?.imageURL}
+                                                        alt={item?.productName}
                                                     />
                                                 </div>
 
@@ -142,13 +142,16 @@ const CheckOut = () => {
                                                     <div className="sm:col-gap-5 sm:grid sm:grid-cols-2">
                                                         <div className="pr-8 sm:pr-5">
                                                             <p className="text-base font-semibold text-gray-900">
-                                                                {item.productName}
+                                                                {item?.productName}
+                                                            </p>
+                                                            <p className="mx-0 mt-1 mb-0 text-sm text-gray-400">
+                                                                {item.productDescription}
                                                             </p>
                                                         </div>
 
                                                         <div className="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
                                                             <p className="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
-                                                                $
+                                                            ৳
                                                                 {(
                                                                     item.quantity * parseFloat(item.productPrice)
                                                                 ).toFixed(2)}
@@ -181,7 +184,7 @@ const CheckOut = () => {
                                                                         }}
                                                                     />
                                                                     <button
-                                                                        onClick={() => incrementQuantity(item._id)}
+                                                                        onClick={() => incrementQuantity(item?._id)}
                                                                         className="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white"
                                                                     >
                                                                         +
@@ -194,7 +197,7 @@ const CheckOut = () => {
                                                     <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
                                                         <button
                                                             type="button"
-                                                            onClick={() => deleteProduct(item._id)}
+                                                            onClick={() => deleteProduct(item?._id)}
                                                             className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
                                                         >
                                                             <svg
@@ -233,10 +236,10 @@ const CheckOut = () => {
                                                 >
                                                     <option value="">Select a User</option>
                                                     {users
-                                                        .filter((user) => user.userType === "isAgent")
-                                                        .map((user) => (
-                                                            <option key={user._id} value={user._id}>
-                                                                {user.displayName}
+                                                        ?.filter((user) => user?.userType === "isAgent")
+                                                        ?.map((user) => (
+                                                            <option key={user?._id} value={user?._id}>
+                                                                {user?.displayName}
                                                             </option>
                                                         ))}
                                                 </select>
@@ -277,21 +280,21 @@ const CheckOut = () => {
                                     <div className="flex items-center justify-between">
                                         <p className="text-sm text-gray-400">Total Cost</p>
                                         <p className="text-lg font-semibold text-gray-900">
-                                            ${subtotal.toFixed(2)}
+                                        ৳{subtotal.toFixed(2)}
                                         </p>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <p className="text-sm text-gray-400">Discount</p>
 
                                         {
-                                            discount > 0 ? <p className="text-lg font-semibold text-gray-900">${discount}.00</p> : <p className="text-lg font-semibold text-gray-900">$00.00</p>
+                                            discount > 0 ? <p className="text-lg font-semibold text-gray-900">{discount}.00</p> : <p className="text-lg font-semibold text-gray-900">৳00.00</p>
                                         }
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <p className="text-sm text-gray-400">Due Ammount</p>
 
                                         {
-                                            due > 0 ? <p className="text-lg font-semibold text-gray-900">${due}.00</p> : <p className="text-lg font-semibold text-gray-900">$00.00</p>
+                                            due > 0 ? <p className="text-lg font-semibold text-gray-900">৳{due}.00</p> : <p className="text-lg font-semibold text-gray-900">৳00.00</p>
                                         }
                                     </div>
                                 </div>
@@ -300,7 +303,7 @@ const CheckOut = () => {
                                     <p className="text-sm font-medium text-gray-900">Total Ammount</p>
                                     <p className="text-2xl font-semibold text-gray-900">
                                         <span className="text-xs font-normal text-gray-400">
-                                            USD
+                                            BDT
                                         </span>{" "}
                                         {
                                             due > 0 ? <div>{

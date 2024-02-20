@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaBeer, FaMoneyBill, FaUser, FaChartBar } from "react-icons/fa";
+import { FaChartBar, FaBeer, FaMoneyBill, FaUser, FaShoppingCart, FaListUl, FaUsers } from "react-icons/fa";
 
 const AdminMenu = () => {
   return (
@@ -8,38 +8,51 @@ const AdminMenu = () => {
         <NavLink to="/analysis">
           <li className="btn btn-primary text-white w-full">
             <FaChartBar className="mr-2" />
-            Analysis
+            Analytics
+          </li>
+        </NavLink>
+        <NavLink to="/addToCard">
+          <li className="btn btn-primary text-white w-full">
+            <FaShoppingCart className="mr-2" />
+            Shopping Cart
+          </li>
+        </NavLink>
+
+        <NavLink to="/sellList">
+          <li className="btn btn-primary text-white w-full">
+            <FaListUl className="mr-2" />
+            Sell List
+          </li>
+        </NavLink>
+
+        <NavLink to="/duoList">
+          <li className="btn btn-primary text-white w-full">
+            <FaUsers className="mr-2" />
+            Duo List
           </li>
         </NavLink>
         <NavLink to="/manageProduct">
           <li className="btn btn-primary text-white w-full">
-            <FaBeer />
-            Manage Product
+            <FaBeer className="mr-2" />
+            Product Management
           </li>
         </NavLink>
 
         <NavLink to="/cost">
           <li className="btn btn-primary text-white w-full">
-            <FaMoneyBill />
-            Manage Cost
+            <FaMoneyBill className="mr-2" />
+            Cost Management
           </li>
         </NavLink>
 
         <NavLink to="/user">
           <li className="btn btn-primary text-white w-full">
-            <FaUser />
-            Manage User
+            <FaUser className="mr-2" />
+            User Management
           </li>
         </NavLink>
-        <NavLink to="/addToCard">
-          <li className="btn   btn-primary text-white  w-full">
-            <img
-              src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
-              alt=""
-            />
-            For Sell
-          </li>
-        </NavLink>
+
+        
       </div>
     </div>
   );

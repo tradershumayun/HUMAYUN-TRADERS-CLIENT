@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 const Time = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCurrentTime(new Date());
+      setCurrentDateTime(new Date());
     }, 1000); // Update every second
 
     return () => {
@@ -13,14 +13,30 @@ const Time = () => {
     };
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+     
+  };
+
   return (
     <div className="text-white">
-      <marquee>
-        Notice: এপ্লিকেশনটি বর্তমানে আন্ডার কনস্ট্রাকশন আছে,শীঘ্রই এটা পুরোপুরি
-        চালু হবে
-      </marquee>
-      <h1>Current Time:</h1>
-      <p className="text-4xl p-4">{currentTime.toLocaleTimeString()}</p>
+      
+     
+      <p className="text-4xl p-4">
+        {currentDateTime.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: true,
+        })}
+        <br />
+
+        
+        
+      </p>{currentDateTime.toLocaleDateString("en-US", options)}
     </div>
   );
 };
