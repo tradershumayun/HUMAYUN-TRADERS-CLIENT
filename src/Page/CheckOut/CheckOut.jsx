@@ -95,7 +95,7 @@ const CheckOut = () => {
                             <div className="px-4 py-6 sm:px-8 sm:py-10">
                                 <div className="flow-root">
                                     <ul className="-my-8">
-                                        {products.map((item) => (
+                                        {products?.map((item) => (
                                             <li
                                                 key={item._id}
                                                 className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
