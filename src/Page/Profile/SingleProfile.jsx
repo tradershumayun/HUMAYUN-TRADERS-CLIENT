@@ -84,15 +84,15 @@ const SingleProfile = () => {
             {user?.beach}
           </p>
           <p>
-            <span className="font-bold text-green-500">Total Buy Amount: </span>
+            <span className="font-bold text-green-500">Total Buy Amount:{user?.totalPurchesAmmount} </span>
           </p> 
           <p>
-            <span className="font-bold text-warning">Total Discount: </span>{" "}
+            <span className="font-bold text-info">Total given :{user?.totalSellPrice} </span>{" "}
           
           </p>
           <p>
             <span className="font-bold text-red-500">
-              Total Duo: {user.totalDueAmmout}
+              Total Duo: {user?.totalDueAmmout}
             </span>
           </p>
           <div className="flex gap-4 mt-4 justify-end"></div>
