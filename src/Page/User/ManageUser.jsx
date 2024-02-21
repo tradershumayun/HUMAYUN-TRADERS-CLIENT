@@ -3,14 +3,20 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const ManageUser = () => {
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(true);
   const { data: user = [], refetch } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const res = await axiosSecure.get("/user", {});
+      if(res.data){
+        setLoading(false);
+      }
       return res.data;
+
     },
   });
 
@@ -25,7 +31,7 @@ const ManageUser = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/user/${user._id}`).then((res) => {
+        axiosSecure.delete(`/user/${user?._id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
@@ -45,9 +51,8 @@ const ManageUser = () => {
     const newRole = e.target.role.value;
 
     axiosSecure
-      .patch(`/user/${user._id}`, { role: newRole })
+      .patch(`/user/${user?._id}`, { role: newRole })
       .then((res) => {
-      
         if (res.data.modifiedCount > 0) {
           refetch();
           Swal.fire({
@@ -64,6 +69,10 @@ const ManageUser = () => {
       });
   };
 
+  if (loading === true) {
+    return (<div className="  bg-base-200 p-16 w-full h-full">Loading...</div>);
+  }
+  
   return (
     <div className="bg-base-200 p-4 m-4 rounded-xl">
       <div className="text-3xl py-2">
@@ -83,7 +92,7 @@ const ManageUser = () => {
           </thead>
           <tbody>
             {user?.map((user, index) => (
-              <tr key={user._id}>
+              <tr key={user?._id}>
                 <td>{index + 1}</td>
                 <td>
                   <div className="flex items-center gap-3">

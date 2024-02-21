@@ -1,4 +1,3 @@
-// Invoice.js
 
 const Invoice = () => {
     return (

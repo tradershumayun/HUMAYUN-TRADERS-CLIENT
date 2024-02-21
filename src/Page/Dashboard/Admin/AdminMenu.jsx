@@ -25,10 +25,10 @@ const AdminMenu = () => {
           </li>
         </NavLink>
 
-        <NavLink to="/duoList">
+        <NavLink to="/memberlist ">
           <li className="btn btn-primary text-white w-full">
             <FaUsers className="mr-2" />
-            Duo List
+            List of Accounts
           </li>
         </NavLink>
         <NavLink to="/manageProduct">

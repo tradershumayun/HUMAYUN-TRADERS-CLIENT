@@ -28,6 +28,7 @@ import OrderList from "../Page/Dashboard/Agent/OrderList";
 import EditProfile from "../Page/Profile/EditProfile";
 import SellView from "../Page/Sell/SellView";
 import Memo from "../Page/Memo/Memo";
+import Accounts from "../Page/Profile/Accounts";
 
 const router = createBrowserRouter([
   {
@@ -145,6 +146,13 @@ const router = createBrowserRouter([
         element: <SingleProfile />,
       },
       {
+        path: "/memberlist",
+        element: (
+          <AdminRouter>
+            <Accounts />
+          </AdminRouter>
+        ),
+      },     {
         path: "/analysis",
         element: (
           <AdminRouter>
