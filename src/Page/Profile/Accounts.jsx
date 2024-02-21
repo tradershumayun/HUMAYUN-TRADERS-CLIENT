@@ -28,6 +28,12 @@ const Accounts = () => {
        console.log(id);
        const sendSms = await axiosSecure.post(`/user/sendSms?userId=${id}`);
        console.log(sendSms);
+       Swal.fire({
+        title: "Success",
+        text: "Message send successfully",
+        icon: "success",
+      });
+      refetch();
   }
 
   return (
@@ -47,7 +53,7 @@ const Accounts = () => {
             <td>Total Buy Amount </td>
                 <td>Total Duo </td>
             <th>Action</th>
-            <th>SMS DATE</th>
+            <th>Last SMS Send Date</th>
           </thead>
           <tbody>
             {user?.map((user, index) => (
@@ -86,7 +92,9 @@ const Accounts = () => {
                   
                 </td>
                 <td>
-                 <h3>comming</h3>
+                 {
+                   user?.lastSmsSendingDate === "" ? <h3>No message send yet</h3> : <h3>{user?.lastSmsSendingDate}</h3>
+                 }
                 </td>
               </tr>
             ))}
