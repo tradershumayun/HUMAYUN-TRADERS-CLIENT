@@ -23,6 +23,12 @@ const Accounts = () => {
   if (loading === true) {
     return <div className="  bg-base-200 p-16 w-full h-full">Loading...</div>;
   }
+  
+  const handleSms = async(id) =>{
+       console.log(id);
+       const sendSms = await axiosSecure.post(`/user/sendSms?userId=${id}`);
+       console.log(sendSms);
+  }
 
   return (
     <div className="bg-base-200 p-4 m-4 rounded-xl">
@@ -39,9 +45,9 @@ const Accounts = () => {
             <th>image</th>
             <th>Name</th>
             <td>Total Buy Amount </td>
-                <td>Total Discount</td>
                 <td>Total Duo </td>
             <th>Action</th>
+            <th>SMS DATE</th>
           </thead>
           <tbody>
             {user?.map((user, index) => (
@@ -70,12 +76,17 @@ const Accounts = () => {
                     </Link>
                   </div>
                 </td>
-                <td>Total Buy Amount </td>
-                <td>Total Discount</td>
-                <td > {user.totalDueAmmout}</td>
+                <td>{user?.totalPurchesAmmount} TK</td>
+                <td > {user.totalDueAmmout} TK</td>
                 
                 <td>
-                  <button className="btn btn-sm btn-warning">Send SMS</button>
+                  {
+                    user.totalDueAmmout > 0 ?  <button onClick={()=>handleSms(user._id)} className="btn btn-sm w-28 btn-warning">Send SMS</button> : <button className="btn btn-sm w-28 disabled btn-disabled">Send SMS</button>
+                  }
+                  
+                </td>
+                <td>
+                 <h3>comming</h3>
                 </td>
               </tr>
             ))}
