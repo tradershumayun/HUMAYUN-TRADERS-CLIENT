@@ -19,7 +19,6 @@ const Accounts = () => {
     },
   });
 
-
   if (loading === true) {
     return <div className="  bg-base-200 p-16 w-full h-full">Loading...</div>;
   }
