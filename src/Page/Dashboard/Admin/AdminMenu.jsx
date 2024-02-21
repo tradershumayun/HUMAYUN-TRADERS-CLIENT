@@ -18,7 +18,7 @@ const AdminMenu = () => {
           </li>
         </NavLink>
 
-        <NavLink to="/sellList">
+        <NavLink to="/sellView">
           <li className="btn btn-primary text-white w-full">
             <FaListUl className="mr-2" />
             Sell List

@@ -26,6 +26,8 @@ import AgentRouter from "./AgentRouter";
 import BuyList from "../Page/Dashboard/Agent/BuyList";
 import OrderList from "../Page/Dashboard/Agent/OrderList";
 import EditProfile from "../Page/Profile/EditProfile";
+import SellView from "../Page/Sell/SellView";
+import Memo from "../Page/Memo/Memo";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/signUp",
     element: <SignUp />,
+  },
+  {
+    path: "/memo",
+    element: <Memo />,
   },
   {
     path: "/",
@@ -70,13 +76,22 @@ const router = createBrowserRouter([
         element: <SingleProduct />,
       },
       {
+        path: "/sellView",
+        element: (
+          <AdminRouter>
+            <SellView />
+          </AdminRouter>
+        ),
+      },
+      {
         path: "/EditProfile/:id",
         element: (
           <AdminRouter>
-            <EditProfile/>
+            <EditProfile />
           </AdminRouter>
         ),
-      },  {
+      },
+      {
         path: "/manageProduct",
         element: (
           <AdminRouter>
