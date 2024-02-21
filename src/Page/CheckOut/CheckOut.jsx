@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const CheckOut = () => {
-    const { product, productLoading } = useGetCardData();
+    const { product, productLoading, productDataRefrtch } = useGetCardData();
     const { user } = useContext(AuthContext)
     const { users } = useGetAllUserData();
     const axiosPublic = useAxiosPublic();
@@ -69,6 +69,12 @@ const CheckOut = () => {
         );
         const res = await axiosPublic.delete(`/card/delete?id=${productId}&user=${user.email}`);
         console.log(res.data);
+        Swal.fire({
+            title: "Deleted!",
+            text: "Your product has been removed.",
+            icon: "success"
+          });
+          productDataRefrtch();
     };
 
     const handleCheckout = async() => {
