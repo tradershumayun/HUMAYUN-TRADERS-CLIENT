@@ -15,11 +15,17 @@ const AgentMenu = () => {
           <FaShoppingBag className="mr-2" />
           My Buy Product list
         </li>
+      </NavLink> 
+      <NavLink to="/invoice">
+        <li className="btn btn-primary text-white w-full">
+          <FaShoppingBag className="mr-2" />
+          My Buy Product Invoice
+        </li>
       </NavLink>
-      <NavLink to="/orderList">
+      <NavLink to="/store">
         <li className="btn btn-primary text-white w-full">
           <FaClipboardList className="mr-2" />
-          My Order Product list
+          All Product in Store
         </li>
       </NavLink>
     </div>

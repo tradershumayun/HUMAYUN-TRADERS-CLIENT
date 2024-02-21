@@ -24,11 +24,12 @@ import AdminRouter from "./AdminRouter";
 import AgentAnalysis from "../Page/Analysis/AgentAnalysis";
 import AgentRouter from "./AgentRouter";
 import BuyList from "../Page/Dashboard/Agent/BuyList";
-import OrderList from "../Page/Dashboard/Agent/OrderList";
+
 import EditProfile from "../Page/Profile/EditProfile";
 import SellView from "../Page/Sell/SellView";
 import Memo from "../Page/Memo/Memo";
 import Accounts from "../Page/Profile/Accounts";
+import ProductDetail from "../Page/Dashboard/Agent/ProductDetail";
 
 const router = createBrowserRouter([
   {
@@ -143,7 +144,18 @@ const router = createBrowserRouter([
 
       {
         path: "/singleUserInfo/:id",
-        element: <SingleProfile />,
+        element: (
+          <AdminRouter>
+            <SingleProfile /> 
+          </AdminRouter>
+        ),
+      }, {
+        path: "/productAgent/:id",
+        element: (
+          <AgentRouter>
+            <ProductDetail /> 
+          </AgentRouter>
+        ),
       },
       {
         path: "/memberlist",
@@ -152,7 +164,8 @@ const router = createBrowserRouter([
             <Accounts />
           </AdminRouter>
         ),
-      },     {
+      },
+      {
         path: "/analysis",
         element: (
           <AdminRouter>
@@ -177,12 +190,8 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/orderList",
-        element: (
-          <OrderList>
-            <AgentAnalysis />
-          </OrderList>
-        ),
+        path: "/store",
+        element: <AllProduct></AllProduct>,
       },
     ],
   },

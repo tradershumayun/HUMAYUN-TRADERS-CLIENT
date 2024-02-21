@@ -1,53 +1,142 @@
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
 
-const AllProducts = () => {
-  const axiosSecure = useAxiosSecure();
-  const { data: products = [] } = useQuery({
-    queryKey: ["product"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/product");
-      return res.data;
-    },
-  });
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
+import Swal from "sweetalert2";
+import {
+  faSearch,
+  faExclamationCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+const AddToCard = () => {
+  const { user } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const [allProduct, setAllProduct] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosPublic.get("/product");
+        setAllProduct(response.data);
+      } catch (error) {
+        console.error("Error fetching costs:", error);
+      }
+    };
+
+    fetchData();
+  }, [axiosPublic]);
+
+  const [loading, setLoading] = useState(false);
+  const [noProductFound, setNoProductFound] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      setNoProductFound(false);
+
+      const productName = e.target.elements.productName.value;
+      const response = await axiosPublic.get(
+        `/product/searchbyName/${productName}`
+      );
+
+      if (response.data.length === 0) {
+        setNoProductFound(true);
+      } else {
+        setAllProduct(response.data);
+      }
+    } catch (error) {
+      console.error("Error in submitting form:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2 grid-cols-1 p-8 m-5">
-      {products?.map((product) => (
-        <div
-          key={product?._id}
-          className="bg-gray-800 rounded-lg overflow-hidden shadow-xl"
-        >
-          <figure>
-            <img
-              className="w-full h-44 object-cover object-center"
-              src={product?.imageURL}
-              alt={product?.displayName}
+    <div className="bg-base-200 rounded-xl px-4">
+      <h3 className="font-normal py-5">Select item you want to sell</h3>
+      <hr />
+      <form onSubmit={handleSubmit} className="flex w-full  p-4">
+        <div className="form-control w-full py-4">
+          <div className="input-group mx-auto  gap-2 flex flex-row">
+            <input
+              required
+              type="text"
+              name="productName"
+              placeholder="Find by product Name"
+              className="input input-bordered"
             />
-          </figure>
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold text-white mb-2">
-              {product?.productName}
-            </h2>
-            <p className="text-sm text-gray-400 mb-4">
-              Price: {product?.productPrice} <br />
-              Category: {product?.ProductType} <br />
-              Quantity: {product?.productQuantity} <br />
-            </p>
-            <div className="flex justify-end">
-              <Link
-                to={`/product/${product?._id}`}
-                className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
-              >
-                Details
-              </Link>
-            </div>
+            <button type="submit" className="btn btn-square bg-base-300">
+              {loading ? (
+                <span className="loading loading-ring loading-lg"></span>
+              ) : (
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="h-6 mt-2 w-6 text-current "
+                />
+              )}
+            </button>
           </div>
         </div>
-      ))}
+      </form>
+      {noProductFound ? (
+        <div className="text-center py-4">
+          <p className="text-red-500">
+            <FontAwesomeIcon
+              icon={faExclamationCircle}
+              className="ml-2 text-6xl"
+            />{" "}
+            <p> No products found </p>
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 justify-items-center">
+          {allProduct?.map((product) => (
+            <div
+              key={product?._id}
+              className="card w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow relative hover:shadow-lg"
+            >
+              <Link
+                to={`/productAgent/${product?._id}`}
+                title="click for product detail page"
+              >
+                <div>
+                  <img
+                    className="h-48 w-72 mx-auto max-w-full p-4 rounded-lg object-cover"
+                    src={product?.imageURL}
+                    alt="product image"
+                  />
+                </div>
+              </Link>
+              <div className="px-5 pb-5">
+                <div className="flex items-center justify-between pt-5">
+                  <h5 className="text-sm font-semibold tracking-tight">
+                    {product.productName}
+                  </h5>
+
+                  <span className="text-xs font-medium text-red-800">
+                    {product.productPrice} BDT
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between pt-5">
+                  <span className="text-xs font-medium text-gray-800 dark:text-white">
+                    {product.productQuantity} unit
+                  </span>
+                </div>
+
+                <div className=" text-sm text-left text-slate-600 py-2">
+                  {product.productDescription.slice(0, 40)}...
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
-export default AllProducts;
+export default AddToCard;
