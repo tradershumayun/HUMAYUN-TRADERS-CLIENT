@@ -20,7 +20,7 @@ const EditProfile = () => {
 
     const formData = {
       displayName: e.target.displayName.value,
-      phoneNo: parseInt(e.target.phoneNo.value),
+      phoneNo: e.target.phoneNo.value,
       beach: parseInt(e.target.beach.value),
       userType: e.target.userType.value,
     };
