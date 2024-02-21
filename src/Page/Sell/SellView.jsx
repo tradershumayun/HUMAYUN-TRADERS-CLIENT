@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SellView = () => {
   const axiosSecure = useAxiosSecure();
@@ -18,6 +19,7 @@ const SellView = () => {
 
     fetchData();
   }, [axiosSecure]);
+
 
   return (
     <div className="bg-base-200 p-4 m-4 rounded-xl">
@@ -45,7 +47,7 @@ const SellView = () => {
             {infos.map((info, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>date</td>
+                <td>{info.date}</td>
                 <Link to={`/singleUserInfo/${info?.agentId}`}>
                   <td className="text-blue-600">{info?.agetName}</td>
                 </Link>
@@ -54,8 +56,9 @@ const SellView = () => {
                 <td className="text-success">{info?.totalCost}</td>
                 <td className="text-error">{info?.dueAmmount}</td>
                 <td className="flex gap-2">
-                  <button className="btn btn-sm btn-info">Invoice</button>
-             
+                  <NavLink to={`/memo/${info._id}`}>
+                    <button className="btn btn-sm btn-info">Invoice</button>
+                  </NavLink>
                 </td>
               </tr>
             ))}
