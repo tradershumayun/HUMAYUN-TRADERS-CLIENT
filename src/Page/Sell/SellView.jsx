@@ -45,7 +45,7 @@ const SellView = () => {
             {infos.map((info, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>date</td>
+                <td>{info?.date}</td>
                 <Link to={`/singleUserInfo/${info?.agentId}`}>
                   <td className="text-blue-600">{info?.agetName}</td>
                 </Link>
@@ -54,7 +54,8 @@ const SellView = () => {
                 <td className="text-success">{info?.totalCost}</td>
                 <td className="text-error">{info?.dueAmmount}</td>
                 <td className="flex gap-2">
-                  <button className="btn btn-sm btn-info">Invoice</button>
+                  <Link>     <button className="btn btn-sm btn-info">Invoice</button> </Link>
+             
              
                 </td>
               </tr>
