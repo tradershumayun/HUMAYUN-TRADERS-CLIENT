@@ -235,7 +235,7 @@ const SignUp = () => {
                   name="PhoneNo"
                   value={phoneNo}
                   onChange={handlePhoneNoChange}
-                  id="PhoneNo" aria-describedby="helper-text-explanation" className="bg-gray-50 pl-[70px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" pattern="[0-9]{10}" placeholder="1764848007" required />
+                  id="PhoneNo" aria-describedby="helper-text-explanation" className="bg-gray-50 pl-20 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" pattern="[0-9]{10}" placeholder="1764848007" required />
               </div>
             </div>
 
