@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const Invoice = () => {
-
     const { id } = useParams()
     console.log(id);
     const axiosSecure = useAxiosSecure();

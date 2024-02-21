@@ -6,10 +6,12 @@ import useAxiosPublic from "../../Hook/useAxiosPublic";
 import Swal from "sweetalert2";
 import { faSearch,faExclamationCircle  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useGetCardData from "../../Hook/useGetCardata";
 const AddToCard = () => {
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const [allProduct, setAllProduct] = useState();
+  const { productDataRefrtch } = useGetCardData();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +25,6 @@ const AddToCard = () => {
 
     fetchData();
   }, [axiosPublic]);
-console.log(setAllProduct)
 
 
   const [loading, setLoading] = useState(false);
@@ -44,6 +45,7 @@ console.log(setAllProduct)
         text: "Congratulations! your product added successfully",
         icon: "success",
       });
+      productDataRefrtch();
     }
     if (res.status === 202) {
       Swal.fire({
