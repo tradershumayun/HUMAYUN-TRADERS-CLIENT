@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ManageProduct = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/product")
+      .get("https://humayun-treders.vercel.app/product")
       .then((response) => {
         setProducts(response.data);
       })
@@ -30,7 +30,7 @@ const ManageProduct = () => {
       if (result.isConfirmed) {
         // Send a request to delete the product
         axios
-          .delete(`http://localhost:5000/product/${productId}`)
+          .delete(`https://humayun-treders.vercel.app/product/${productId}`)
           .then((response) => {
             if (response.status === 200) {
               setProducts((prevProducts) =>

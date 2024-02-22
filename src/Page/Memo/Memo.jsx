@@ -4,7 +4,7 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const Invoice = () => {
     const { id } = useParams()
-    console.log(id);
+     
     const axiosSecure = useAxiosSecure();
 
     const { data = [] } = useQuery({
@@ -14,13 +14,13 @@ const Invoice = () => {
             return res.data;
         },
     });
-    console.log(data);
+    
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
             <div className="text-center">
                 <h1 className="text-3xl font-semibold">Invoice</h1>
-                <p className="text-gray-500">Date: {new Date().toLocaleDateString()}</p>
+                <p className="text-gray-500">Date: {data?.date}</p>
             </div>
             <div className="flex justify-between mt-6">
                 <div className="w-1/2 pr-4">

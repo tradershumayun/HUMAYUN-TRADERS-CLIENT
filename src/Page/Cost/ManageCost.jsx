@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import AddCost from "./AddCost";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const ManageCost = () => {
   const [costs, setCosts] = useState([]);
@@ -21,7 +20,7 @@ const ManageCost = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Send a request to delete the product
-        axiosSecure.delete(`http://localhost:5000/cost/${costId}`)
+        axiosSecure.delete(`https://humayun-treders.vercel.app/cost/${costId}`)
           .then(response => {
             if (response.status === 200) {
              

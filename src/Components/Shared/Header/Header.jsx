@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 const Header = () => {
 
   const {product  } = useGetCardData();
-  console.log(product);
+ 
 
   const handleClick = () =>{
     Swal.fire({
