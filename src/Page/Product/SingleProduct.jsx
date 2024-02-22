@@ -64,7 +64,7 @@ const SingleProduct = () => {
   };
 
   return (
-    <div className="container mx-auto my-8 text-white">
+    <div className="container mx-auto my-8 text-white  p-2">
       <div className="flex flex-col lg:flex-row w-full">
         <div className="w-full lg:w-1/2">
           <img

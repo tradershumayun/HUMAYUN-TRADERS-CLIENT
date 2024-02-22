@@ -89,7 +89,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="justify-around p-8 gap-9 text-center rounded-lg  my-8 bg-[#172554] w-full mx-auto   ">
+          <div className="justify-around p-6 lg:p-8 gap-9 text-center rounded-lg  my-8 bg-[#172554] w-full mx-auto   ">
             <div className=" ">
               {isAdmin ? (
                 <>
@@ -108,7 +108,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="w-full lg:w-2/3 p-4  sticky top-10  ">
-          <div className="w-full justify-around p-8 gap-9 text-center rounded-lg lg:-mt-32 bg-[#172554]  ">
+          <div className="w-full justify-around p-0 lg:p-8 gap-9 text-center rounded-lg lg:-mt-32 bg-[#172554]  ">
             <Outlet></Outlet>
           </div>
         </div>

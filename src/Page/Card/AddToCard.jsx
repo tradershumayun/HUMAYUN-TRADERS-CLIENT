@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
+import logo from "../../assets/logo.png";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
@@ -8,6 +8,8 @@ import { faSearch,faExclamationCircle  } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useGetCardData from "../../Hook/useGetCardata";
 const AddToCard = () => {
+  
+  const {product  } = useGetCardData();
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const [allProduct, setAllProduct] = useState();
@@ -29,10 +31,7 @@ const AddToCard = () => {
 
   const [loading, setLoading] = useState(false);
   const [noProductFound, setNoProductFound] = useState(false);
-
-  const plusSvg = `
- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100px" height="100px" viewBox="0,0,256,256"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(2.56,2.56)"><path d="M13,27c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2z" fill="#8ba5c4"></path><path d="M77,12c-0.55228,0 -1,0.44772 -1,1c0,0.55228 0.44772,1 1,1c0.55228,0 1,-0.44772 1,-1c0,-0.55228 -0.44772,-1 -1,-1z" fill="#f1bc19"></path><path d="M50,13c-20.43454,0 -37,16.56546 -37,37c0,20.43454 16.56546,37 37,37c20.43454,0 37,-16.56546 37,-37c0,-20.43454 -16.56546,-37 -37,-37z" fill="#C73435"></path><path d="M83,11c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4z" fill="#f1bc19"></path><path d="M87,22c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2z" fill="#8ba5c4"></path><path d="M81,74c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM15,59c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4z" fill="#fbcd59"></path><path d="M25,85c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2z" fill="#8ba5c4"></path><path d="M18.5,51c-1.38071,0 -2.5,1.11929 -2.5,2.5c0,1.38071 1.11929,2.5 2.5,2.5c1.38071,0 2.5,-1.11929 2.5,-2.5c0,-1.38071 -1.11929,-2.5 -2.5,-2.5z" fill="#ffffff"></path><path d="M21,66c-0.55228,0 -1,0.44772 -1,1c0,0.55228 0.44772,1 1,1c0.55228,0 1,-0.44772 1,-1c0,-0.55228 -0.44772,-1 -1,-1z" fill="#f1bc19"></path><path d="M80,33c-0.55228,0 -1,0.44772 -1,1c0,0.55228 0.44772,1 1,1c0.55228,0 1,-0.44772 1,-1c0,-0.55228 -0.44772,-1 -1,-1z" fill="#ffffff"></path><g><path d="M49.978,66.107l12.838,-12.807h-37.116v-5.6h37.123l-12.916,-12.807l3.729,-3.747l19.374,19.292l-19.328,19.413z" fill="#172554"></path><path d="M53.638,32.136l18.382,18.303l-18.337,18.418l-2.718,-2.746l11.146,-11.119l2.397,-2.391h-3.386h-34.722v-4.2h34.723h3.4l-2.414,-2.394l-11.211,-11.118l2.74,-2.753M53.633,30.156l-4.717,4.74l12.207,12.104h-36.123v7h36.123l-12.133,12.104l4.691,4.74l20.319,-20.409l-20.367,-20.279z" fill="#ffffff"></path></g></g></g></svg>`;
-
+ 
   const handleClick = async (product) => {
     const res = await axiosPublic.post(
       `/card?userEmail=${user.email}`,
@@ -168,8 +167,84 @@ const AddToCard = () => {
 
       <div className="fixed bottom-8 right-8 transition-all duration-300">
         <Link to="/checkOut">
-          <button className="px-4 py-2   ">
-            <span dangerouslySetInnerHTML={{ __html: plusSvg }} />
+          <button className="px-4 py-2 bg-blue-900  rounded-xl">
+          {
+                product.message === 'no item found' ? 
+               
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle"
+                  >
+                    <div onClick={()=>handleClick()} className="indicator text-white">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                        />
+                      </svg> (0)
+                    </div>
+                  </div>
+                : <div>
+                  {
+                    product?.cardItems?.length ? <NavLink to="/checkOut">
+                     
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-ghost btn-circle"
+                      >
+                        <div className="indicator text-white">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                            />
+                          </svg> ({product?.cardItems?.length})
+                        </div>
+                      </div>
+                    
+                    </NavLink> :  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle"
+                  >
+                    <div onClick={()=>handleClick()} className="indicator text-white">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                        />
+                      </svg> (0)
+                    </div>
+                  </div>
+                  }
+                </div>
+              }
           </button>
         </Link>
       </div>
