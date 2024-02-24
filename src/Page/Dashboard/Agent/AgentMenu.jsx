@@ -19,7 +19,7 @@ const AgentMenu = () => {
       <NavLink to="/orderList">
         <li className="btn btn-primary text-white w-full">
           <FaClipboardList className="mr-2" />
-          My Order Product list
+          Show store Product
         </li>
       </NavLink>
     </div>

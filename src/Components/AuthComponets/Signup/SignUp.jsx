@@ -181,7 +181,7 @@ const SignUp = () => {
             </div>
             <div className="space-y-1 text-sm">
               <label htmlFor="photoURL" className="block text-white">
-                আপনার ছবির Url
+                আপনার ছবি 
               </label>
               <input
                 type="file"
