@@ -28,7 +28,7 @@ const AdminMenu = () => {
         <NavLink to="/memberlist ">
           <li className="btn btn-primary text-white w-full">
             <FaUsers className="mr-2" />
-            List of Accounts
+            List of Due
           </li>
         </NavLink>
         <NavLink to="/manageProduct">

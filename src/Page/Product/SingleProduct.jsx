@@ -87,10 +87,7 @@ const SingleProduct = () => {
             <span className="font-bold text-blue-500">Product Quantity: </span>
             {product?.productQuantity}
           </p>{" "}
-          <p>
-            <span className="font-bold text-blue-500">Product Type: </span>
-            {product?.ProductType}
-          </p>{" "}
+        
           <p>
             <span className="font-bold text-blue-500">
               Product Description:{" "}

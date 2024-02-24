@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
- 
+
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
@@ -28,7 +28,7 @@ const SingleProfile = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  
   return (
     <div className="bg-base-300   p-8 rounded-lg shadow-md">
       <div className="bg-base-300">
@@ -46,9 +46,9 @@ const SingleProfile = () => {
                   <th>No</th>
                   <th>Image</th>
                   <th>Name</th>
-                  <th>Date</th>
-                  <th>Quantity</th>
                   <th>Price</th>
+                  <th>Quantity</th>
+                
                 </tr>
               </thead>
               <tbody>
@@ -70,9 +70,8 @@ const SingleProfile = () => {
                     >
                       <td>{product?.productName}</td>
                     </Link>
-
-                    <td>{product?.productQuantity}</td>
                     <td>{product?.productPrice}</td>
+                    <td>{product?.productQuantity}</td>
                   </tr>
                 ))}
               </tbody>

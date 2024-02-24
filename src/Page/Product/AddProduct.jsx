@@ -34,11 +34,10 @@ const AddProduct = () => {
 
       const productData = {
         productName: data.productName,
-        ProductType: data.ProductType,
+        productBuyPrice: data.productBuyPrice,
         productPrice: parseFloat(data.productPrice),
         productQuantity: parseInt(data.productQuantity),
         productDescription: data.productDescription,
-
         imageURL: res.data.data.url,
         ownerEmail: user?.email,
       };
@@ -51,7 +50,7 @@ const AddProduct = () => {
           photoURL: "",
           productQuantity: "",
           productPrice: "",
-          ProductType: "",
+          productBuyPrice: "",
           productDescription: "",
         });
 
@@ -113,7 +112,22 @@ const AddProduct = () => {
             )}
           </div>
           <div className="space-y-1 text-sm w-full lg:w-1/2">
-            <label className="block dark-text-gray-400">Product Price</label>
+            <label className="block dark-text-gray-400">Product buy Price</label>
+            <input
+              {...register("productBuyPrice", {
+                required: "Product buy Price is required",
+              })}
+              type="number"
+              className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
+            />
+            {errors.productBuyPrice && (
+              <p className="text-red-500">{errors.productBuyPrice.message}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-1 text-sm w-full  ">
+            <label className="block dark-text-gray-400">Product sell  Price</label>
             <input
               {...register("productPrice", {
                 required: "Product Price is required",
@@ -125,27 +139,6 @@ const AddProduct = () => {
               <p className="text-red-500">{errors.productPrice.message}</p>
             )}
           </div>
-        </div>
-
-        {/* Product Type/Tags */}
-        <div className="space-y-1 text-sm">
-          <label className="block dark-text-gray-400">Product Type/Tags</label>
-          <select
-            {...register("ProductType", {
-              required: "Product Type is required",
-            })}
-            className="w-full px-4 py-3 rounded-md text-black"
-          >
-            <option value="type1">Type 1</option>
-            <option value="type2">Type 2</option>
-            <option value="type3">Type 3</option>
-            <option value="type4">Type 4</option>
-          </select>
-          {errors.ProductType && (
-            <p className="text-red-500">{errors.ProductType.message}</p>
-          )}
-        </div>
-
         {/* Product Description */}
         <div className="space-y-1 text-sm">
           <label className="block dark-text-gray-400">
