@@ -13,6 +13,16 @@ const Analysis = () => {
         },
     });
 
+    const { data: costData  = [] } = useQuery({
+        queryKey: ["costData"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/cost");
+            return res.data;
+        },
+    });
+
+    const dailyCosts = costData.filter(item => item.costType === "Daily");
+    const monthlyCosts = costData.filter(item => item.costType === "Month");
 
     const { totalSellAmmount, monthlySellAmount, yearlySellAmount, dailySellAmmount } = sellData;
 
@@ -31,6 +41,11 @@ const Analysis = () => {
         const year = date.getFullYear();
         return `${day} ${month} ${year}`;
     };
+
+    const formatDateCost = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+      };
 
     return (
         <div className="p-4 text-white">
@@ -92,6 +107,48 @@ const Analysis = () => {
                     </tbody>
                 </table>
             </div>
+
+            <div className="p-4">
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Daily Costs</h2>
+        <table className="table-auto border-collapse w-full">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="px-4 py-2 text-black">Date</th>
+              <th className="px-4 py-2 text-black">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dailyCosts.map(cost => (
+              <tr key={cost._id}>
+                <td className="border px-4 py-2">{formatDateCost(cost.costDate)}</td>
+                <td className="border px-4 py-2">{cost.cost}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Monthly Costs</h2>
+        <table className="table-auto border-collapse w-full">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="px-4 py-2 text-black">Date</th>
+              <th className="px-4 py-2 text-black">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {monthlyCosts.map(cost => (
+              <tr key={cost._id}>
+                <td className="border px-4 py-2">{formatDateCost(cost.costDate)}</td>
+                <td className="border px-4 py-2">{cost.cost}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
         </div>
     );
 };
