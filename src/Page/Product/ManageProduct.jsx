@@ -8,7 +8,7 @@ const ManageProduct = () => {
 
   useEffect(() => {
     axios
-      .get("https://humayun-treders.vercel.app/product")
+      .get("http://localhost:5000/product")
       .then((response) => {
         setProducts(response.data);
       })
@@ -30,7 +30,7 @@ const ManageProduct = () => {
       if (result.isConfirmed) {
         // Send a request to delete the product
         axios
-          .delete(`https://humayun-treders.vercel.app/product/${productId}`)
+          .delete(`http://localhost:5000/product/${productId}`)
           .then((response) => {
             if (response.status === 200) {
               setProducts((prevProducts) =>
@@ -73,8 +73,8 @@ const ManageProduct = () => {
               <th>Image</th>
               <th>Name</th>
               <th>Quantity</th>
-              <th>Price</th>
-              <th>Type</th>
+              <th>Price (tk)</th>
+              <th>Buy Price(tk)</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -99,8 +99,9 @@ const ManageProduct = () => {
                 </Link>
 
                 <td>{product?.productQuantity}</td>
-                <td>{product?.productPrice}</td>
-                <td>{product?.ProductType}</td>
+                <td>{product?.productPrice} </td>
+                <td className="text-green-500">{product?.productBuyPrice}  </td>
+               
 
                 <td className="   ">
                   <Link to={`/UpdateProduct/${product?._id}`} className="m-1">

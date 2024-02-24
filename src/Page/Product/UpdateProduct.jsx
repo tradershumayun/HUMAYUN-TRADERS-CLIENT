@@ -47,7 +47,7 @@ const UpdateProduct = () => {
       imageURL: e.target.imageURL.value,
       productQuantity: parseInt(e.target.productQuantity.value), 
       productPrice: parseInt(e.target.productPrice.value),
-      productType: e.target.productType.value,
+      productBuyPrice: e.target.productBuyPrice.value,
       productDescription: e.target.productDescription.value,
     };
     try {
@@ -111,6 +111,17 @@ const UpdateProduct = () => {
             />
           </div>
           <div className="space-y-1 text-sm w-full lg:w-1/2">
+            <label className="block dark-text-gray-400">Product buy Price</label>
+            <input
+              type="number"
+              name="productBuyPrice"
+              defaultValue={product?.productBuyPrice}
+              className="text-gray-900 w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
+            />
+          </div>  
+          
+          
+            <div className="space-y-1 text-sm w-full  ">
             <label className="block dark-text-gray-400">Product Price</label>
             <input
               type="number"
@@ -121,21 +132,7 @@ const UpdateProduct = () => {
           </div>
         </div>
 
-        {/* Product Type/Tags */}
-        <div className="space-y-1 text-sm">
-          <label className="block dark-text-gray-400">Product Type/Tags</label>
-          <select
-            name="productType"
-            defaultValue={product?.productType}
-            className="w-full px-4 py-3 rounded-md text-black"
-          >
-            {/* Update options based on your product types */}
-            <option value="Type1">Type 1</option>
-            <option value="Type2">Type 2</option>
-            <option value="Type3">Type 3</option>
-            <option value="Type4">Type 4</option>
-          </select>
-        </div>
+     
 
         {/* Product Description */}
         <div className="space-y-1 text-sm">
