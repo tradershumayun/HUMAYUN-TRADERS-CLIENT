@@ -29,6 +29,7 @@ import EditProfile from "../Page/Profile/EditProfile";
 import SellView from "../Page/Sell/SellView";
 import Memo from "../Page/Memo/Memo";
 import Accounts from "../Page/Profile/Accounts";
+import AllProducts from "../Page/Product/AllProduct";
 
 const router = createBrowserRouter([
   {
@@ -177,11 +178,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/orderList",
+        path: "/allProduct",
         element: (
-          <OrderList>
-            <AgentAnalysis />
-          </OrderList>
+          <AllProducts>
+         
+          </AllProducts>
         ),
       },
     ],
