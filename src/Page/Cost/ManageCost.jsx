@@ -20,7 +20,7 @@ const ManageCost = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Send a request to delete the product
-        axiosSecure.delete(`https://humayun-treders.vercel.app/cost/${costId}`)
+        axiosSecure.delete(`http://localhost:5000/cost/${costId}`)
           .then(response => {
             if (response.status === 200) {
              

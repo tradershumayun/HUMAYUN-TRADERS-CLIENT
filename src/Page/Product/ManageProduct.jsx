@@ -8,7 +8,7 @@ const ManageProduct = () => {
 
   useEffect(() => {
     axios
-      .get("https://humayun-treders.vercel.app/product")
+      .get("http://localhost:5000/product")
       .then((response) => {
         setProducts(response.data);
       })
@@ -30,7 +30,7 @@ const ManageProduct = () => {
       if (result.isConfirmed) {
         // Send a request to delete the product
         axios
-          .delete(`https://humayun-treders.vercel.app/product/${productId}`)
+          .delete(`http://localhost:5000/product/${productId}`)
           .then((response) => {
             if (response.status === 200) {
               setProducts((prevProducts) =>
