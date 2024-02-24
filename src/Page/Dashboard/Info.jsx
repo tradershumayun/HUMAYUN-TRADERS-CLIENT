@@ -6,7 +6,7 @@ const Info = () => {
   const [status, setStatus] = useState([]);
 
   useEffect(() => {
-    fetch("https://humayun-treders.vercel.app/")
+    fetch("http://localhost:5000/")
       .then((res) => res.text())
       .then((data) => setStatus(data))
       .catch((error) => {
