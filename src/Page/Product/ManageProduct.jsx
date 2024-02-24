@@ -73,8 +73,8 @@ const ManageProduct = () => {
               <th>Image</th>
               <th>Name</th>
               <th>Quantity</th>
-              <th>Price</th>
-              <th>Type</th>
+              <th>Price (tk)</th>
+              <th>Buy Price(tk)</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -99,8 +99,9 @@ const ManageProduct = () => {
                 </Link>
 
                 <td>{product?.productQuantity}</td>
-                <td>{product?.productPrice}</td>
-                <td>{product?.ProductType}</td>
+                <td>{product?.productPrice} </td>
+                <td className="text-green-500">{product?.productBuyPrice}  </td>
+               
 
                 <td className="   ">
                   <Link to={`/UpdateProduct/${product?._id}`} className="m-1">

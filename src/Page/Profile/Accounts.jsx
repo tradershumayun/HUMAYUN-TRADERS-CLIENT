@@ -38,7 +38,7 @@ const Accounts = () => {
   return (
     <div className="bg-base-200 p-0 m-0 lg:p-4 lg:m-4 rounded-xl">
       <div className="text-3xl py-2">
-        <h2>Manage user</h2>
+        <h2>Due list</h2>
       </div>
       <div className="flex w-full  "></div>
       <h4>Total user : {user?.length}</h4>
