@@ -134,14 +134,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkOut",
-        element: <CheckOut></CheckOut>,
+        element: (
+          <AdminRouter> 
+            <CheckOut></CheckOut>
+          </AdminRouter>
+        ),
       },
 
       {
         path: "/user",
-        element: <ManageUser />,
+        element: (
+          <AdminRouter>
+            <ManageUser />
+          </AdminRouter>
+        ),
       },
-
       {
         path: "/singleUserInfo/:id",
         element: <SingleProfile />,
@@ -153,7 +160,8 @@ const router = createBrowserRouter([
             <Accounts />
           </AdminRouter>
         ),
-      },     {
+      },
+      {
         path: "/analysis",
         element: (
           <AdminRouter>
@@ -179,11 +187,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/allProduct",
-        element: (
-          <AllProducts>
-         
-          </AllProducts>
-        ),
+        element: <AllProducts></AllProducts>,
       },
     ],
   },
