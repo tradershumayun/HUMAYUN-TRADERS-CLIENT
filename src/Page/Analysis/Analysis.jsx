@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import Marquee from "react-fast-marquee";
 
 const Analysis = () => {
 
     const axiosSecure = useAxiosSecure();
-  const { data: sellData = [] } = useQuery({
-    queryKey: ["sellInfo"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/sell/allSell");
-      return res.data;
-    },
-  });
+    const { data: sellData = [] } = useQuery({
+        queryKey: ["sellInfo"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/sell/allSell");
+            return res.data;
+        },
+    });
 
 
     const { totalSellAmmount, monthlySellAmount, yearlySellAmount, dailySellAmmount } = sellData;
@@ -33,9 +34,13 @@ const Analysis = () => {
 
     return (
         <div className="p-4 text-white">
-            <h2 className="text-2xl font-bold mb-4">Sell History</h2>
+            <Marquee speed={100}>
+            <h2 className="text-2xl font-bold ">Sell History</h2>
+            </Marquee>
+            
+            <hr />
 
-            <div className="mb-8">
+            <div className="mb-8 pt-6">
                 <h3 className="text-lg font-semibold mb-2">Total Sell Amount:</h3>
                 <table className="table-auto border-collapse w-full">
                     <tbody>
