@@ -55,7 +55,7 @@ const Analysis = () => {
                 <h3 className="text-lg font-semibold m-2">Daily Sell Amount:</h3>
                 <table className="table-auto border-collapse w-full">
                     <tbody>
-                        {dailySellAmmount?.map(dayData => (
+                        {dailySellAmmount?.slice(0,30).reverse().map(dayData => (
                             <tr key={dayData.day}>
                                 <td className="border px-4 py-2">{formatDateForDaily(dayData.day)}</td>
                                 <td className="border px-4 py-2">{dayData.totalAmmount}</td>
