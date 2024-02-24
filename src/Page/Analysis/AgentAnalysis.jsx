@@ -24,13 +24,13 @@ const AgentAnalysis = () => {
       <div className="mb-8">
         <h3 className="text-lg font-semibold mb-2">Total Purchase Amount:</h3>
         <div className="border border-white rounded-md p-4">
-          <p className="text-xl font-semibold">{data.totalPurchesAmmount} Tk</p>
+          <p className="text-xl font-semibold">{data?.totalPurchesAmmount} Tk</p>
         </div>
       </div>
       <div className="mb-8">
         <h3 className="text-lg font-semibold mb-2">Total Due:</h3>
         <div className="border border-white rounded-md p-4">
-          <p className="text-xl font-semibold">{data.totalDueAmmout} Tk</p>
+          <p className="text-xl font-semibold">{data?.totalDueAmmout} Tk</p>
         </div>
       </div>
     </div>
