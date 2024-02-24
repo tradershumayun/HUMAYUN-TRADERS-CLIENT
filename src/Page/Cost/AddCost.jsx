@@ -13,31 +13,30 @@ const AddCost = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // try {
+    try {
  
-    //   const res = await axiosSecure.post("/cost", data);
+      const res = await axiosSecure.post("/cost", data);
 
-    //   if (res.data.insertedId === null) {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Oops...",
-    //       text: "Error Already Register!",
-    //       position: "top-right",
-    //     });
-    //   } else {
-    //     Swal.fire({
-    //       title: "Cost  added Success!",
-    //       text: "Thanks You!",
-    //       icon: "success",
-    //       position: "top-right",
-    //       timer: 1500,
-    //     });
-    //     navigate("/cost");
-    //   }
-    // } catch (error) {
-    //   console.error("Error adding property:", error);
-    // }
+      if (res.data.insertedId === null) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error Already Register!",
+          position: "top-right",
+        });
+      } else {
+        Swal.fire({
+          title: "Cost  added Success!",
+          text: "Thanks You!",
+          icon: "success",
+          position: "top-right",
+          timer: 1500,
+        });
+        navigate("/cost");
+      }
+    } catch (error) {
+      console.error("Error adding property:", error);
+    }
   };
 
   return (
