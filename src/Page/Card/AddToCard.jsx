@@ -80,6 +80,16 @@ const AddToCard = () => {
     }
   };
 
+  const handleCardError = () => {
+    console.log('hello');
+    Swal.fire({
+      title: "Error",
+      text: `No item in the card`,
+      icon: "error",
+    });
+  };
+
+
   return (
     <div className="bg-base-200 rounded-xl px-4">
       <h3 className="font-normal py-5">Select item you want to sell</h3>
@@ -166,7 +176,6 @@ const AddToCard = () => {
       )}
 
       <div className="fixed bottom-8 right-8 transition-all duration-300">
-        <Link to="/checkOut">
           <button className="px-4 py-2 bg-blue-900  rounded-xl">
           {
                 product.message === 'no item found' ? 
@@ -176,7 +185,7 @@ const AddToCard = () => {
                     role="button"
                     className="btn btn-ghost btn-circle"
                   >
-                    <div onClick={()=>handleClick()} className="indicator text-white">
+                    <div onClick={()=>handleCardError()} className="indicator text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
@@ -225,7 +234,7 @@ const AddToCard = () => {
                     role="button"
                     className="btn btn-ghost btn-circle"
                   >
-                    <div onClick={()=>handleClick()} className="indicator text-white">
+                    <div onClick={()=>handleCardError()} className="indicator text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
@@ -246,7 +255,6 @@ const AddToCard = () => {
                 </div>
               }
           </button>
-        </Link>
       </div>
 
    
