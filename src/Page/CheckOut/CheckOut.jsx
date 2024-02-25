@@ -14,7 +14,7 @@ const CheckOut = () => {
     const { users } = useGetAllUserData();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState("");
     const [due, setDue] = useState(0);
     const [discount, setDiscount] = useState(0);
@@ -78,7 +78,7 @@ const CheckOut = () => {
     };
 
     const handleCheckout = async() => {
- 
+        setLoading(true);
         products.forEach((item) => {
           
         });
@@ -90,14 +90,14 @@ const CheckOut = () => {
                 title: "Error",
                 text: "Please select a valid agent!",
                 icon: "error",
-              });
+              });setLoading(false);
         }
         if(res.status === 202){
             Swal.fire({
                 title: "Error",
                 text: `${res?.data?.message}`,
                 icon: "error",
-              });
+              });setLoading(false);
         }
         if(res.status === 200){
             const res = await axiosPublic.delete(`/card/deleteAllCard?user=${user.email}`);
@@ -107,7 +107,7 @@ const CheckOut = () => {
                 text: "Products sell successfully",
                 icon: "success",
               });
-              navigate('/');
+              navigate('/');setLoading(false);
         }
     };
 
@@ -370,10 +370,13 @@ const CheckOut = () => {
                                                                         <GrDisabledOutline className="pl-2 text-2xl"></GrDisabledOutline>
                                                                     </button> : <button
                                                                         type="button"
+                                                                        disabled={loading} 
                                                                         onClick={handleCheckout}
                                                                         className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
                                                                     >
-                                                                        Checkout
+
+{loading ? "processing..." : "Checkout"}
+                                                                        
                                                                         <svg
                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                             className="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
