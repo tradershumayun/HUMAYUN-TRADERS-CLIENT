@@ -30,6 +30,8 @@ import SellView from "../Page/Sell/SellView";
 import Memo from "../Page/Memo/Memo";
 import Accounts from "../Page/Profile/Accounts";
 import AllProducts from "../Page/Product/AllProduct";
+import ManageMoney from "../Page/Money/ManageMoney";
+import AddMoney from "../Page/Money/AddMoney";
 
 const router = createBrowserRouter([
   {
@@ -188,6 +190,12 @@ const router = createBrowserRouter([
       {
         path: "/allProduct",
         element: <AllProducts></AllProducts>,
+      },{
+        path: "/money",
+        element: <ManageMoney></ManageMoney>,
+      },{
+        path: "/addMoney",
+        element: <AddMoney/> ,
       },
     ],
   },

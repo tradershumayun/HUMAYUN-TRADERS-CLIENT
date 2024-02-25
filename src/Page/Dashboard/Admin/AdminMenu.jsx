@@ -38,6 +38,12 @@ const AdminMenu = () => {
           </li>
         </NavLink>
 
+        <NavLink to="/money">
+          <li className="btn btn-primary text-white w-full">
+            <FaMoneyBill className="mr-2" />
+             Money Management
+          </li>
+        </NavLink>
         <NavLink to="/cost">
           <li className="btn btn-primary text-white w-full">
             <FaMoneyBill className="mr-2" />
