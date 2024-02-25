@@ -24,7 +24,7 @@ const ManageMoney = () => {
         axiosSecure
           .delete(`${MONEY_API_URL}/${moneyId}`)
           .then((response) => {
-            if (response.ok) {
+            if (response) {
               setMoneys((prevMoneys) =>
                 prevMoneys.filter((money) => money._id !== moneyId)
               );
