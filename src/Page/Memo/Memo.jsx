@@ -82,7 +82,7 @@ const Invoice = () => {
         <p className="text-right mt-4">Total Amount: {data.totalCost} TK</p>
         <p className="text-right">Total Paid: {data.paid} TK</p>
         {data.dueAmmount > 0 && (
-          <p className="text-right">Discount:............. TK</p>
+          <p className="text-right">{data?.discount} TK</p>
         )}
         {data.dueAmmount > 0 && (
           <p className="text-right">Due: {data.dueAmmount} TK</p>

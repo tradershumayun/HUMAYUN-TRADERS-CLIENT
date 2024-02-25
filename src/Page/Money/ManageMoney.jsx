@@ -41,8 +41,6 @@ const ManageMoney = () => {
     });
   };
 
- 
-
   useEffect(() => {
     const fetchData = async () => {
       try {

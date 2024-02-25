@@ -41,20 +41,23 @@ const Accounts = () => {
 
   const onSubmit = async (e, userId) => {
     e.preventDefault();
-    const amount = e.target.elements.amount.value; // Assuming the input has a name attribute 'amount'
-    console.log("User ID:", userId);
-    console.log("Paid Amount:", amount);
+    const amount = parseInt(e.target.elements.amount.value);
 
-    try {
-      // Add your logic for handling form submission with user ID and amount
-      // For example, you can make an Axios request here
-      // await axios.post('/your-api-endpoint', { userId, amount });
-      // After successful submission, you may want to refetch data
-      // refetch();
-    } catch (error) {
-      console.error("Error submitting form:", error);
+    if (amount > 0) {
+      const res = await axiosSecure.post(`/user/paid?userId=${userId}&amount=${amount}`)
+      if (res) {
+        refetch();
+        Swal.fire({
+          title: "Success",
+          text: "Add Money Successfully",
+          icon: "success",
+        });
+        e.target.elements.amount.value = '';
+      }
     }
+
   };
+
   if (loading) {
     return <div className="bg-base-200 p-16 w-full h-full">Loading...</div>;
   }
