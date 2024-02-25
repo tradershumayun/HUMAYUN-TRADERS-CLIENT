@@ -22,7 +22,22 @@ const Analysis = () => {
     });
 
     const dailyCosts = costData.filter(item => item.costType === "Daily");
-    const monthlyCosts = costData.filter(item => item.costType === "Month");
+    
+
+    const monthlyCosts = costData.reduce((acc, current) => {
+      const monthYear = new Date(current.costDate).toLocaleString('default', { month: 'long', year: 'numeric' });
+      if (!acc[monthYear]) {
+        acc[monthYear] = {
+          monthYear: monthYear,
+          totalCost: 0
+        };
+      }
+      acc[monthYear].totalCost += current.cost;
+      return acc;
+    }, {});
+  
+    // Convert the grouped data into an array of objects
+    const monthlyCostsArray = Object.values(monthlyCosts);
 
     const { totalSellAmmount, monthlySellAmount, yearlySellAmount, dailySellAmmount } = sellData;
 
@@ -129,26 +144,26 @@ const Analysis = () => {
         </table>
       </div>
 
-      
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Monthly Costs</h2>
-        <table className="table-auto border-collapse w-full">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="px-4 py-2 text-black">Date</th>
-              <th className="px-4 py-2 text-black">Amount</th>
+    
+      <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">Monthly Costs</h2>
+      <table className="table-auto border-collapse w-full">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="px-4 py-2 text-black">Month</th>
+            <th className="px-4 py-2 text-black">Total Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {monthlyCostsArray.map(cost => (
+            <tr key={cost.monthYear}>
+              <td className="border px-4 py-2">{formatDateCost(cost.monthYear)}</td>
+              <td className="border px-4 py-2">{cost.totalCost}</td>
             </tr>
-          </thead>
-          <tbody>
-            {monthlyCosts.map(cost => (
-              <tr key={cost._id}>
-                <td className="border px-4 py-2">{formatDateCost(cost.costDate)}</td>
-                <td className="border px-4 py-2">{cost.cost}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
+    </div>
     </div>
         </div>
     );
